@@ -1,104 +1,93 @@
-import React, { useState, useEffect } from 'react'
-import Admin from './admin/Admin'
-import Signup from './user/Signup'
-import Signin from './user/Signin'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
-import Axios from 'axios'
-import jwt_decode from 'jwt-decode'
+import React, { useState, useEffect } from 'react';
+import auth from './firebase';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import SignUp from './components/SignUp';
+import SocialLogin from './components/SocialLogin';
+import axios from 'axios';
 
-export default function App() {
-
-  const [isAuth, setIsAuth] = useState(false)
-  const [user, setUser] = useState({});
+function App() {
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    let token = localStorage.getItem("token")
-    if (token != null) {
-      let user = jwt_decode(token)
+    auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+    });
+  }, []);
 
-      if (user) {
-        setIsAuth(true)
-        setUser(user)
-      }
-      else if (!user) {
-        localStorage.removeItem("token")
-        setIsAuth(false)
-      }
-    }
-  }, [])
-
-
-  const registerHandler = (user) => {
-    Axios.post("auth/signup", user)
-      .then(res => {
-        console.log(res)
+  const signOut = () => {
+    auth.signOut()
+    .then((response) => {
+      axios.get('auth/signout').then((response) => {
+        console.log(response);
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  const loginHandler = (cred) => {
-    Axios.post("auth/signin", cred)
-      .then(res => {
-        console.log(res.data.token)
-        // Save the token into Local Storage
-        let token = res.data.token
-        if (token != null) {
-          localStorage.setItem("token", token)
-          let user = jwt_decode(token);
-          setIsAuth(true)
-          setUser(user)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        setIsAuth(false)
-      })
-  }
-
-  const onLogoutHandler = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token")
-    setIsAuth(false)
-    setUser(null)
-  }
+      .catch((error) => {
+        console.log(error);
+      });
+    });
+  };
 
   return (
-    <div>
-      <Router>
-        <div>
-          <nav>
-            <div>
-              <Link to="/">Home</Link> &nbsp;
-              <Link to="/signup">Signup</Link> &nbsp;
-              <Link to="/signin">Signin</Link> &nbsp;
-              <Link to="/logout" onClick={onLogoutHandler}>Logout</Link>
-            </div>
-          </nav>
+    <Router>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">
+            CMS App
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+              </li>
+              {currentUser ? (
+                <li className="nav-item">
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={signOut}
+                  >
+                    Sign Out
+                  </button>
+                </li>
+              ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login">
+                        Log In
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/signup">
+                        Sign Up
+                      </Link>
+                    </li>
+                  </>
+                )}
+            </ul>
+          </div>
         </div>
+      </nav>
 
-        <div>
-          <Routes>
-
-            <Route path="/" element={
-              isAuth ?
-                <Admin />
-                :
-                <Signin login={loginHandler}></Signin>}>
-            </Route>
-
-            <Route path="/signup" element={<Signup register={registerHandler} />}></Route>
-
-            <Route path="/signin" element={
-              isAuth ?
-                <Admin />
-                :
-                <Signin login={loginHandler}></Signin>}>
-            </Route>
-          </Routes>
-        </div>
-      </Router>
-    </div>
-  )
+      <div className="container py-4">
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<SocialLogin />} />
+          <Route path="/" element={<h1>Welcome to my app!</h1>} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
+
+export default App;
