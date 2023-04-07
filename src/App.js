@@ -5,6 +5,7 @@ import Signin from './user/Signin'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import Axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import Website from './website/Website'
 
 export default function App() {
 
@@ -73,7 +74,10 @@ export default function App() {
               <Link to="/">Home</Link> &nbsp;
               <Link to="/signup">Signup</Link> &nbsp;
               <Link to="/signin">Signin</Link> &nbsp;
-              <Link to="/logout" onClick={onLogoutHandler}>Logout</Link>
+              <Link to="/logout" onClick={onLogoutHandler}>Logout</Link>  &nbsp;
+              <Link to="/admin">Admin</Link>  &nbsp;
+              <Link to="/website/WebDevGuru">Website</Link>
+              {/* <a href="" target="_blank" rel="noopener noreferrer">website</a> */}
             </div>
           </nav>
         </div>
@@ -96,6 +100,8 @@ export default function App() {
                 :
                 <Signin login={loginHandler}></Signin>}>
             </Route>
+            <Route path='/admin' element={<Admin />} />
+            <Route path="/website/:websiteDomain" element={<Website />} />
           </Routes>
         </div>
       </Router>
