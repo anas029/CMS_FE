@@ -1,31 +1,46 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import auth from './firebase';
-
-import Website from './website/Website'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SocialLogin from './components/SocialLogin';
+import ForgotPassword from './components/ForgotPassword';
+import axios from 'axios';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
+    auth.onIdTokenChanged((user) => {
+      if(user){
+        user.getIdToken().then((idToken) => {
+          const data = {
+            idToken,
+          };
+          axios.post('auth/user', data).then((response) => {
+            const updatedUser = response.data.user;
+            setCurrentUser(updatedUser);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        });
+      } else {
+        setCurrentUser(null);
+      }
+    })
   }, []);
 
   const signOut = () => {
     auth.signOut()
-      .then((response) => {
-        axios.get('auth/signout').then((response) => {
-          console.log(response);
-        })
-          .catch((error) => {
-            console.log(error);
-          });
+    .then((response) => {
+      axios.get('auth/signout').then((response) => {
+        console.log(response);
+        setCurrentUser(null);
+      })
+      .catch((error) => {
+        console.log(error);
       });
+    });
   };
 
   return (
@@ -54,15 +69,17 @@ function App() {
                 </Link>
               </li>
               {currentUser ? (
-                <li className="nav-item">
-                  <button
-                    className="btn btn-outline-danger"
-                    onClick={signOut}
-                  >
-                    Sign Out
-                  </button>
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24 }} />
+                    {currentUser.firstName}
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby="userDropdown">
+                    <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                    <li><button className="dropdown-item" onClick={signOut}>Sign Out</button></li>
+                  </ul>
                 </li>
-              ) : (
+              ): (
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
@@ -76,14 +93,6 @@ function App() {
                   </li>
                 </>
               )}
-              <li className="nav-item">
-                <Link className="nav-link" to="/website/WebDevGuru/index">
-                  Website WebDevGuru
-                </Link>
-                <Link className="nav-link" to="/website/WebDevGuru/about">
-                  about
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
@@ -91,11 +100,10 @@ function App() {
 
       <div className="container py-4">
         <Routes>
-          <Route path="/signup" element={<SignUp />} />
+          <Route exact path="/" element={<h1>Welcome to our website!</h1>} />
           <Route path="/login" element={<SocialLogin />} />
-          <Route path="/" element={<h1>Welcome to my app!</h1>} />
-          <Route path="/website/:websiteDomain/:path" element={<Website />} />
-          <Route path="/website/:websiteDomain/*" element={<Website />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
         </Routes>
       </div>
     </Router>
