@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import auth from './firebase';
+import {auth} from './firebase';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SocialLogin from './components/SocialLogin';
 import ForgotPassword from './components/ForgotPassword';
+import Profile from './components/Profile';
 import axios from 'axios';
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
               {currentUser ? (
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24 }} />
+                    <img  referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24 }} />
                     {currentUser.firstName}
                   </a>
                   <ul className="dropdown-menu" aria-labelledby="userDropdown">
@@ -104,6 +105,7 @@ function App() {
           <Route path="/login" element={<SocialLogin />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/profile" element={<Profile currentUser={currentUser} />} />
         </Routes>
       </div>
     </Router>
