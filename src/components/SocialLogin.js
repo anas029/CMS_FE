@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import auth from '../firebase';
+import { auth } from '../firebase';
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -66,13 +66,22 @@ const SocialLogin = () => {
     setIsLoading(true);
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        userCredential.user.getIdToken().then((idToken) => {
+      .then((response) => {
+        const user = response.user;
+        user.getIdToken().then((idToken) => {
+          const names = user.displayName ? user.displayName.split(' ') : ['-', '-'];
+          const firstName = names[0];
+          const lastName = names[1] ?? '-';
+          const avatarURL = user.photoURL;
           const data = {
-            idToken
+            idToken,
+            firstName,
+            lastName,
+            avatarURL
           };
-          axios.post('http://localhost:4000/auth/signin', data).then((response) => {
+          axios.post('auth/signin', data).then(async (response) => {
             console.log(response);
+            await auth.currentUser.getIdToken(true);
             console.log("Navigating to profile...");
             navigate('/profile');
             setIsLoading(false);

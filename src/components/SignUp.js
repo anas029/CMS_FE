@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import auth from '../firebase';
+import {auth} from '../firebase';
 import axios from 'axios';
 
 
