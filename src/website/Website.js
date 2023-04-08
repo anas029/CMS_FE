@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 
 
 
@@ -32,16 +33,20 @@ export default function Website(props) {
     }
 
     const modifyLinks = (element) => {
+        if (element.tagName === 'a')
+            console.log(element.children);
         // Check if this element is an <a> tag with an href attribute and it is relative path
         if (element.tagName === 'a' && element.attribs.href && element.attribs.href.startsWith('/')) {
             // Add the proxy to the href attribute value
-            element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
+            // element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
+            return <Link to={`/website/WebDevGuru${element.attribs.href}`}>{element.children[0].data}</Link>
+            // element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
         }
         // // Recurse through any child elements
-        if (element.children) {
-            element.children = modifyLinks(element.children)
-        }
-        return element;
+        // if (element.children) {
+        //     element.children = modifyLinks(element.children)
+        // }
+        // return element;
     }
     const loadMain = () => {
         // console.log('useEffect', websiteDomain, path);
