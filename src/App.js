@@ -77,8 +77,11 @@ function App() {
                 </>
               )}
               <li className="nav-item">
-                <Link className="nav-link" to="/website/WebDevGuru">
+                <Link className="nav-link" to="/website/WebDevGuru/index">
                   Website WebDevGuru
+                </Link>
+                <Link className="nav-link" to="/website/WebDevGuru/about">
+                  about
                 </Link>
               </li>
             </ul>
@@ -91,7 +94,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<SocialLogin />} />
           <Route path="/" element={<h1>Welcome to my app!</h1>} />
-          <Route path="/website/:websiteDomain" element={<Website />} />
+          <Route path="/website/:websiteDomain/:path" element={<Website />} />
         </Routes>
       </div>
     </Router>

@@ -12,12 +12,13 @@ export default function Footer(props) {
         Axios.get(`http://localhost:4000/page/footer?id=${props.websiteId}`)
             .then(response => {
                 setFooter(response.data.content)
-                console.log(footer);
+                // console.log(footer);
             })
             .catch(error => { console.log('error', error.message) })
     }
     return (
         <footer>
+            {console.log('render footer comp')}
             {parse(footer)}
         </footer>
     )

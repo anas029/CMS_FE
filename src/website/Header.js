@@ -11,12 +11,13 @@ export default function Header(props) {
         Axios.get(`http://localhost:4000/page/header?id=${props.websiteId}`)
             .then(response => {
                 setHeader(response.data.content)
-                console.log(header);
+                // console.log(header);
             })
             .catch(error => { console.log('error', error.message) })
     }
     return (
         <header>
+            {console.log('render Header comp')}
             {parse(header)}
         </header>
     )
