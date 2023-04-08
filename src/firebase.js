@@ -1,5 +1,7 @@
 import {initializeApp} from 'firebase/app';
 import {getAuth} from 'firebase/auth';
+import {getStorage} from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDYUiFbTkMZLEd_xtxW9bOznok0lW4i-IM",
@@ -12,5 +14,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
-export default auth;
+
+async function uploadFileAndGetURL(file){
+    try{
+        const storageRef = ref(storage, `files/${auth.currentUser.uid}/${file.name}`);
+        const snapshot = await uploadBytesResumable(storageRef, file);
+        const url = await getDownloadURL(snapshot.ref);
+        console.log('Success: file url =>', url);
+        return url;
+    } catch(err){
+        console.error('Error: uploading file =>', err);
+        return false;
+    }
+}
+
+export {auth, storage, uploadFileAndGetURL};
