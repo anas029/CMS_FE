@@ -95,6 +95,8 @@ function App() {
           <Route path="/login" element={<SocialLogin />} />
           <Route path="/" element={<h1>Welcome to my app!</h1>} />
           <Route path="/website/:websiteDomain/:path" element={<Website />} />
+          <Route path="/website/:websiteDomain/*" element={<Website />} />
+          {/* <Route path="/website/:websiteDomain/index" element={<Website />} /> */}
         </Routes>
       </div>
     </Router>

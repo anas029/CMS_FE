@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import parse from 'html-react-parser';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Header(props) {
     const [header, setHeader] = useState('')
@@ -15,10 +15,31 @@ export default function Header(props) {
             })
             .catch(error => { console.log('error', error.message) })
     }
+    // const modifyLinks = (element) => {
+    //     return props.modifyLinks(element)
+    // }
+
+    const modifyLinks = (element) => {
+        // if (element.tagName === 'a')
+        //     console.log('element: ', element)
+        // Check if this element is an <a> tag with an href attribute
+        if (element.tagName === 'a' && element.attribs.href && element.attribs.href.startsWith('/')) {
+            // Add the proxy to the href attribute value
+            element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
+        }
+        // // Recurse through any child elements
+        // if (element.children) {
+        //     element.children = React.Children.map(element.children, modifyLinks);
+        // }
+        return element;
+    };
+    const headerHTML = parse(header, { replace: (element) => modifyLinks(element) })
+
+
     return (
         <header>
             {console.log('render Header comp')}
-            {parse(header)}
+            {headerHTML}
         </header>
     )
 }
