@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import axios from 'axios';
 import auth from './firebase';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import Website from './website/Website'
 import SignUp from './components/SignUp';
 import SocialLogin from './components/SocialLogin';
 import ForgotPassword from './components/ForgotPassword';
-import axios from 'axios';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
-      if(user){
+      if (user) {
         user.getIdToken().then((idToken) => {
           const data = {
             idToken,
@@ -20,9 +23,9 @@ function App() {
             const updatedUser = response.data.user;
             setCurrentUser(updatedUser);
           })
-          .catch((error) => {
-            console.log(error);
-          });
+            .catch((error) => {
+              console.log(error);
+            });
         });
       } else {
         setCurrentUser(null);
@@ -32,15 +35,15 @@ function App() {
 
   const signOut = () => {
     auth.signOut()
-    .then((response) => {
-      axios.get('auth/signout').then((response) => {
-        console.log(response);
-        setCurrentUser(null);
-      })
-      .catch((error) => {
-        console.log(error);
+      .then((response) => {
+        axios.get('auth/signout').then((response) => {
+          console.log(response);
+          setCurrentUser(null);
+        })
+          .catch((error) => {
+            console.log(error);
+          });
       });
-    });
   };
 
   return (
@@ -79,7 +82,7 @@ function App() {
                     <li><button className="dropdown-item" onClick={signOut}>Sign Out</button></li>
                   </ul>
                 </li>
-              ): (
+              ) : (
                 <>
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
@@ -93,6 +96,11 @@ function App() {
                   </li>
                 </>
               )}
+              <li className="nav-item">
+                <Link className="nav-link" to="/website/WebDevGuru/">
+                  Website WebDevGuru
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -104,6 +112,8 @@ function App() {
           <Route path="/login" element={<SocialLogin />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/website/:websiteDomain/:path" element={<Website />} />
+          <Route path="/website/:websiteDomain/*" element={<Website />} />
         </Routes>
       </div>
     </Router>

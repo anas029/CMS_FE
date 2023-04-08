@@ -1,10 +1,9 @@
 import Axios from "axios"
-import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 
 
 
