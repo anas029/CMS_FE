@@ -78,22 +78,22 @@ const SignUp = () => {
               firstName,
               lastName,
             };
-            axios.post('auth/signup', data).then( async (response) => {
+            axios.post('http://localhost:4000/auth/signup', data).then(async (response) => {
               console.log(response);
               await auth.currentUser.getIdToken(true);
               console.log(auth.currentUser);
               navigate('/profile');
               setIsLoading(false);
             })
-            .catch((error) => {
-              console.log(error);
-              setIsLoading(false);
-            });
+              .catch((error) => {
+                console.log(error);
+                setIsLoading(false);
+              });
           });
         })
         .catch((error) => {
-            setFirebaseError(error.message);
-            setIsLoading(false);
+          setFirebaseError(error.message);
+          setIsLoading(false);
         });
     } else {
       if (!firstName) {
@@ -119,7 +119,7 @@ const SignUp = () => {
       <h1 className="mb-4">Sign Up</h1>
       {firebaseError && (
         <div className="alert alert-danger">
-            {firebaseError}
+          {firebaseError}
         </div>
       )}
       <div className="mb-3">
@@ -156,21 +156,21 @@ const SignUp = () => {
         </label>
         <input type="password" className={`form-control ${passwordError ? 'is invalid' : ''}`} id="confirm-password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
         {passwordError && <div className="invalid-feedback">{passwordError}</div>}
-        </div>
-        <button className="btn btn-primary" onClick={handleSignUp}>
-          {isLoading ? ( // Conditionally render the loading indicator
-            <div className="spinner-border text-light" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          ) : (
-            'Sign up'
-          )}
-        </button>
-        <div className="mt-3">
+      </div>
+      <button className="btn btn-primary" onClick={handleSignUp}>
+        {isLoading ? ( // Conditionally render the loading indicator
+          <div className="spinner-border text-light" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : (
+          'Sign up'
+        )}
+      </button>
+      <div className="mt-3">
         Already have an account? <Link to="/login">Sign in</Link>
-        </div>
+      </div>
     </div>
-);
+  );
 };
 
 export default SignUp;

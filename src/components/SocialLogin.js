@@ -16,7 +16,7 @@ const SocialLogin = () => {
   const [firebaseError, setFirebaseError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  
+
   const signInWithProvider = (provider) => {
     setIsLoading(true); // Set isLoading to true when the request is made
     signInWithPopup(auth, provider).then((response) => {
@@ -32,17 +32,17 @@ const SocialLogin = () => {
           lastName,
           avatarURL
         };
-        axios.post('auth/signin', data).then(async (response) => {
+        axios.post('http://localhost:4000/auth/signin', data).then(async (response) => {
           console.log(response);
           await auth.currentUser.getIdToken(true);
           console.log(auth.currentUser);
           navigate('/profile');
           setIsLoading(false);
         })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-        });
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+          });
       });
     }).catch((error) => {
       setFirebaseError(error.message);
@@ -71,12 +71,12 @@ const SocialLogin = () => {
           const data = {
             idToken
           };
-          axios.post('auth/signin', data).then((response) => {
-              console.log(response);
-              console.log("Navigating to profile...");
-              navigate('/profile');
-              setIsLoading(false);
-            })
+          axios.post('http://localhost:4000/auth/signin', data).then((response) => {
+            console.log(response);
+            console.log("Navigating to profile...");
+            navigate('/profile');
+            setIsLoading(false);
+          })
             .catch((error) => {
               console.log(error);
               setIsLoading(false);
@@ -94,10 +94,10 @@ const SocialLogin = () => {
       <div>
         <h1 className="mb-4">Sign In</h1>
         {firebaseError && (
-            <div className="alert alert-danger">
-                {firebaseError}
-            </div>
-          )}
+          <div className="alert alert-danger">
+            {firebaseError}
+          </div>
+        )}
         <form>
           <div className="form-group mb-3">
             <label className="mb-2">Email Address</label>
@@ -129,11 +129,11 @@ const SocialLogin = () => {
         <button className="btn btn-outline-danger btn-lg w-50 mb-3" onClick={signInWithGoogle}>
           <i className="fab fa-google fa-lg mr-2"></i> Sign in with Google
         </button>
-  
+
         <button className="btn btn-outline-info btn-lg w-50 mb-3" onClick={signInWithTwitter}>
           <i className="fab fa-twitter fa-lg mr-2"></i> Sign in with Twitter
         </button>
-  
+
         <button className="btn btn-outline-secondary btn-lg w-50 mb-3" onClick={signInWithGitHub}>
           <i className="fab fa-github fa-lg mr-2"></i> Sign in with GitHub
         </button>

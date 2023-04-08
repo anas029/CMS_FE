@@ -8,6 +8,7 @@ import Website from './website/Website'
 import SignUp from './components/SignUp';
 import SocialLogin from './components/SocialLogin';
 import ForgotPassword from './components/ForgotPassword';
+import WebsiteCreate from './admin/WebsiteCreate';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -115,6 +116,7 @@ function App() {
           <Route path="/website/:websiteDomain/:path" element={<Website />} />
           <Route path="/website/:websiteDomain/*" element={<Website />} />
         </Routes>
+        <WebsiteCreate />
       </div>
     </Router>
   );
