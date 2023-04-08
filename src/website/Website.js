@@ -1,9 +1,10 @@
 import Axios from "axios"
 import React, { useEffect, useState } from "react"
-import { redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
+
 
 
 export default function Website(props) {
@@ -31,29 +32,28 @@ export default function Website(props) {
     }
 
     const modifyLinks = (element) => {
-        // Check if this element is an <a> tag with an href attribute
-        if (element.type === 'a' && element.props.href && element.props.href.startsWith('/')) {
+        // Check if this element is an <a> tag with an href attribute and it is relative path
+        if (element.tagName === 'a' && element.attribs.href && element.attribs.href.startsWith('/')) {
             // Add the proxy to the href attribute value
-            element.props.href = `/website/${websiteDomain}${element.props.href}`;
+            element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
         }
-        // Recurse through any child elements
-        if (element.props && element.props.children) {
-            element.props.children = React.Children.map(element.props.children, modifyLinks);
+        // // Recurse through any child elements
+        if (element.children) {
+            element.children = modifyLinks(element.children)
         }
         return element;
-    };
+    }
     const loadMain = () => {
         // console.log('useEffect', websiteDomain, path);
 
         return <Main websiteId={website.id} path={path} />
     }
+
     return (
         <>
-            < h1 > {websiteDomain}</h1 >
-            <p>{website.name}</p>
             <Header websiteId={website.id} modifyLinks={modifyLinks} />
-            <Main websiteId={website.id} path={path ? path : 'index'} />
-            <Footer websiteId={website.id} />
+            <Main websiteId={website.id} path={path ? path : 'index'} modifyLinks={modifyLinks} />
+            <Footer websiteId={website.id} modifyLinks={modifyLinks} />
 
         </>
     )

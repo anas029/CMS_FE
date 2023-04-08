@@ -16,10 +16,16 @@ export default function Footer(props) {
             })
             .catch(error => { console.log('error', error.message) })
     }
+    const modifyLinks = (element) => {
+        return props.modifyLinks(element)
+    }
+
+
+    const footerHTML = parse(footer, { replace: (element) => modifyLinks(element) })
+
     return (
         <footer>
-            {console.log('render footer comp')}
-            {parse(footer)}
+            {footerHTML}
         </footer>
     )
 }
