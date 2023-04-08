@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../firebase';
+import axios from 'axios';
 
 
 const SignUp = () => {
@@ -15,6 +16,8 @@ const SignUp = () => {
   const [lastNameError, setLastNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [firebaseError, setFirebaseError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -65,12 +68,32 @@ const SignUp = () => {
 
   const handleSignUp = () => {
     if (firstName && lastName && email && password && confirmPassword === password && !passwordError) {
+      setIsLoading(true);
       createUserWithEmailAndPassword(auth, email, password)
         .then((response) => {
           console.log(response);
+          response.user.getIdToken().then((idToken) => {
+            const data = {
+              idToken,
+              firstName,
+              lastName,
+            };
+            axios.post('auth/signup', data).then( async (response) => {
+              console.log(response);
+              await auth.currentUser.getIdToken(true);
+              console.log(auth.currentUser);
+              navigate('/profile');
+              setIsLoading(false);
+            })
+            .catch((error) => {
+              console.log(error);
+              setIsLoading(false);
+            });
+          });
         })
         .catch((error) => {
             setFirebaseError(error.message);
+            setIsLoading(false);
         });
     } else {
       if (!firstName) {
@@ -94,6 +117,11 @@ const SignUp = () => {
   return (
     <div className="container">
       <h1 className="mb-4">Sign Up</h1>
+      {firebaseError && (
+        <div className="alert alert-danger">
+            {firebaseError}
+        </div>
+      )}
       <div className="mb-3">
         <label htmlFor="firstName" className="form-label">
           First Name
@@ -130,16 +158,17 @@ const SignUp = () => {
         {passwordError && <div className="invalid-feedback">{passwordError}</div>}
         </div>
         <button className="btn btn-primary" onClick={handleSignUp}>
-        Sign up
+          {isLoading ? ( // Conditionally render the loading indicator
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            'Sign up'
+          )}
         </button>
         <div className="mt-3">
         Already have an account? <Link to="/login">Sign in</Link>
         </div>
-        {firebaseError && (
-        <div className="alert alert-danger p-3" style={{ fontSize: '1.2em', fontWeight: 'bold' }}>
-            {firebaseError}
-        </div>
-        )}
     </div>
 );
 };
