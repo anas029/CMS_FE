@@ -7,6 +7,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
+import WebsiteCreate from './admin/WebsiteCreate';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -18,7 +19,7 @@ function App() {
           const data = {
             idToken,
           };
-          axios.post('auth/user', data).then((response) => {
+          axios.post('http://localhost:4000/auth/user', data).then((response) => {
             const updatedUser = response.data.user;
             setCurrentUser(updatedUser);
           })
@@ -35,7 +36,7 @@ function App() {
   const signOut = () => {
     auth.signOut()
       .then((response) => {
-        axios.get('auth/signout').then((response) => {
+        axios.get('http://localhost:4000/auth/signout').then((response) => {
           console.log(response);
           setCurrentUser(null);
         })
@@ -100,6 +101,11 @@ function App() {
                   Website WebDevGuru
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/Create">
+                  Create website
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -114,6 +120,7 @@ function App() {
           <Route path="/profile" element={<Profile currentUser={currentUser} />} />
           <Route path="/website/:websiteDomain/:path" element={<Website />} />
           <Route path="/website/:websiteDomain/*" element={<Website />} />
+          <Route path="/create" element={<WebsiteCreate />} />
         </Routes>
       </div>
     </Router>
