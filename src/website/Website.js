@@ -22,7 +22,7 @@ export default function Website(props) {
         // console.log(websiteDomain)
         // console.log('useEffect', websiteDomain, path);
 
-        Axios.get(`http://localhost:4000/website/domain?domain=${websiteDomain}`)
+        Axios.get(`/website/domain?domain=${websiteDomain}`)
             .then(response => {
                 // console.log('getWebsiteID')
                 // console.log(response)

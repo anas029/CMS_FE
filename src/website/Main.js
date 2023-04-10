@@ -8,7 +8,7 @@ export default function Main(props) {
         loadMain()
     }, [props.websiteId, props.path])
     const loadMain = (path = props.path) => {
-        Axios.get(`http://localhost:4000/page/main?id=${props.websiteId}&path=${path}`)
+        Axios.get(`/page/main?id=${props.websiteId}&path=${path}`)
             .then(response => {
                 if (path !== 'index' && !response.data)
                     loadMain('index')
