@@ -8,7 +8,7 @@ export default function Header(props) {
         loadHeader()
     }, [props.websiteId])
     const loadHeader = () => {
-        Axios.get(`http://localhost:4000/page/header?id=${props.websiteId}`)
+        Axios.get(`/page/header?id=${props.websiteId}`)
             .then(response => {
                 setHeader(response.data.content)
                 // console.log(header);

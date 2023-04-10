@@ -9,7 +9,7 @@ export default function Footer(props) {
         loadFooter()
     }, [props.websiteId])
     const loadFooter = () => {
-        Axios.get(`http://localhost:4000/page/footer?id=${props.websiteId}`)
+        Axios.get(`/page/footer?id=${props.websiteId}`)
             .then(response => {
                 setFooter(response.data.content)
                 // console.log(footer);

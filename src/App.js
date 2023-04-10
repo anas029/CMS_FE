@@ -22,7 +22,7 @@ function App() {
           const data = {
             idToken,
           };
-          axios.post('http://localhost:4000/auth/user', data).then((response) => {
+          axios.post('/auth/user', data).then((response) => {
             const updatedUser = response.data.user;
             setCurrentUser(updatedUser);
           })
@@ -39,7 +39,7 @@ function App() {
   const signOut = () => {
     auth.signOut()
       .then((response) => {
-        axios.get('http://localhost:4000/auth/signout').then((response) => {
+        axios.get('/auth/signout').then((response) => {
           console.log(response);
           setCurrentUser(null);
         })
