@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
 import WebsiteCreate from './admin/WebsiteCreate';
+import PageCreate from './admin/PageCreate';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -106,6 +107,11 @@ function App() {
                   Create website
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/page">
+                  Create page
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -120,7 +126,9 @@ function App() {
           <Route path="/profile" element={<Profile currentUser={currentUser} />} />
           <Route path="/website/:websiteDomain/:path" element={<Website />} />
           <Route path="/website/:websiteDomain/*" element={<Website />} />
-          <Route path="/create" element={<WebsiteCreate />} />
+          <Route path="/create" element={<WebsiteCreate owner={currentUser} />} />
+          <Route path="/page" element={<PageCreate />} />
+
         </Routes>
       </div>
     </Router>

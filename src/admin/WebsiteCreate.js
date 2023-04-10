@@ -2,7 +2,7 @@ import Axios from "axios"
 import { useEffect, useState } from "react"
 
 export default function WebsiteCreate(props) {
-    const [website, setWebsite] = useState({ owner: '642fc27dd811361ceea76e0d' })
+    const [website, setWebsite] = useState({ owner: props.owner })
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
 
