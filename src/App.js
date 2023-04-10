@@ -8,6 +8,9 @@ import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
 import WebsiteCreate from './admin/WebsiteCreate';
+import PageCreate from './admin/PageCreate';
+import PageBuilder from './admin/PageBuilder';
+import PageBuild from './admin/PageBuild';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -123,6 +126,8 @@ function App() {
           <Route path="/create" element={<WebsiteCreate />} />
         </Routes>
       </div>
+
+      <PageBuild />
     </Router>
   );
 }
