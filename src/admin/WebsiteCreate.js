@@ -20,6 +20,7 @@ export default function WebsiteCreate({currentUser}) {
     }else{
         //setting the current user id
         website.owner = currentUser.id;
+        console.log(website.owner);
     }
 
     const handleChange = (event) => {
