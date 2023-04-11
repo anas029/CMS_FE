@@ -1,7 +1,7 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
 import DomainForm from "./DomainForm"
-import Main from "./Main"
+import PageBuilder from "./PageBuilder"
 import { useNavigate } from "react-router-dom"
 
 export default function WebsiteCreate(props) {
@@ -37,7 +37,7 @@ export default function WebsiteCreate(props) {
             {website.id ?
                 <>
                     <p>add page</p>
-                    <Main />
+                    <PageBuilder websiteID={website.id} />
                 </>
                 :
                 <DomainForm website={website} handleDomain={handleDomain} />

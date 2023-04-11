@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 import Axios from "axios"
 
 
-export default function Main() {
+export default function Main(props) {
 
     const initData = {
         h1: 'Responsive left-aligned hero with image',
@@ -16,21 +16,6 @@ export default function Main() {
     const [html, setHTML] = useState('')
     useEffect(() => {
         const initHTML = `<div class='container col-xxl-12 px-4 py-5'><div class='row flex-lg-row-reverse align-items-center g-5 py-5'><div class='col-10 col-sm-8 col-lg-6'><img src='https://getbootstrap.com/docs/5.0/examples/heroes/bootstrap-themes.png' class='d-block mx-lg-auto img-fluid' alt='Bootstrap Themes' width='700' height='500' loading='lazy'></div><div class='col-lg-6'><h1 class='display-5 fw-bold lh-1 mb-3'>${data.h1}</h1><p class='lead'>${data.p}</p><div class='d-grid gap-2 d-md-flex justify-content-md-start'><button type='button' class='btn btn-primary btn-lg px-4 me-md-2'>${data.button1}</button><button type='button' class='btn btn-outline-secondary btn-lg px-4'>${data.button2}</button></div></div></div></div>`
-        //     const initHTML = `<div class='container col-xxl-8 px-4 py-5'>
-        //     <div class='row flex-lg-row-reverse align-items-center g-5 py-5'>
-        //       <div class='col-10 col-sm-8 col-lg-6'>
-        //         <img src='https://getbootstrap.com/docs/5.0/examples/heroes/bootstrap-themes.png' class='d-block mx-lg-auto img-fluid' alt='Bootstrap Themes' width='700' height='500' loading='lazy'>
-        //       </div>
-        //       <div class='col-lg-6'>
-        //         <h1 class='display-5 fw-bold lh-1 mb-3'>${data.h1}</h1>
-        //         <p class='lead'>${data.p}</p>
-        //         <div class='d-grid gap-2 d-md-flex justify-content-md-start'>
-        //           <button type='button' class='btn btn-primary btn-lg px-4 me-md-2'>${data.button1}</button>
-        //           <button type='button' class='btn btn-outline-secondary btn-lg px-4'>${data.button2}</button>
-        //         </div>
-        //       </div>
-        //     </div>
-        //   </div>`
         setHTML(initHTML)
 
     }, [data])
@@ -46,7 +31,7 @@ export default function Main() {
             type: "main",
             path: "services",
             content: html,
-            website: "642fc2ccd811361ceea76e0f"
+            website: props.websiteID
         }
         Axios.post('page', page)
             .then(res => {
