@@ -17,9 +17,9 @@ const auth = getAuth(app);
 const storage = getStorage(app);
 
 
-async function uploadFileAndGetURL(file){
+async function uploadFileAndGetURL(file, name){
     try{
-        const storageRef = ref(storage, `files/${auth.currentUser.uid}/${file.name}`);
+        const storageRef = ref(storage, `files/${auth.currentUser.uid}/${name}`);
         const snapshot = await uploadBytesResumable(storageRef, file);
         const url = await getDownloadURL(snapshot.ref);
         console.log('Success: file url =>', url);

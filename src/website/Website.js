@@ -58,7 +58,6 @@ export default function Website(props) {
             <Header websiteId={website.id} modifyLinks={modifyLinks} />
             <Main websiteId={website.id} path={path ? path : 'index'} modifyLinks={modifyLinks} />
             <Footer websiteId={website.id} modifyLinks={modifyLinks} />
-
         </>
     )
 }
