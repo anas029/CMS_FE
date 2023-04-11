@@ -67,7 +67,6 @@ export default function Website(props) {
 
     return (
         <>
-            <p>Page</p>
             {loadPage()}
         </>
     )
