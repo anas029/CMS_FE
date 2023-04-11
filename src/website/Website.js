@@ -7,6 +7,7 @@ import { useParams, Link } from "react-router-dom";
 import Header from "../buildWebsite/Header2";
 import Footer from "../buildWebsite/Footer2";
 import Home from "../buildWebsite/Home";
+import About from "../buildWebsite/About";
 
 export default function Website(props) {
     const { websiteDomain, path = 'index' } = useParams()
@@ -61,6 +62,7 @@ export default function Website(props) {
         return <>
             <Header websiteID={website.id} />
             <Home websiteID={website.id} />
+            <About websiteID={website.id} />
             <Footer websiteID={website.id} />
         </>
     }
