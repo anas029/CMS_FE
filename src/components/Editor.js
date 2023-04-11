@@ -2,7 +2,6 @@ import grapesjs from 'grapesjs'
 import React, { useState, useEffect } from 'react'
 import gjsPresetWebpage from "grapesjs-preset-webpage"
 import grapesjsplugintoolbox from 'grapesjs-plugin-toolbox'
-import grapesjspluginbeeupimage from 'grapesjs-plugin-beeup-image'
 
 
 
@@ -16,14 +15,9 @@ export default function Editor() {
     useEffect(() => {
         const editor = grapesjs.init({
             container: "#editor",
-            plugins: [
-                gjsPresetWebpage, 
-                grapesjsplugintoolbox,
-                grapesjspluginbeeupimage
-            ],
+            plugins: [gjsPresetWebpage, grapesjsplugintoolbox],
             pluginsOpts:{
-                gjsPresetWebpage: {},
-                [grapesjspluginbeeupimage]: {}
+                gjsPresetWebpage: {}
             }
         })
         setEditor(editor)  
