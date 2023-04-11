@@ -58,6 +58,7 @@ export default function Website(props) {
             <Header websiteId={website.id} modifyLinks={modifyLinks} />
             <Main websiteId={website.id} path={path ? path : 'index'} modifyLinks={modifyLinks} />
             <Footer websiteId={website.id} modifyLinks={modifyLinks} />
+            <img alt=" " src="https://designshack.net/wp-content/uploads/adobe-xd-website-templates.jpg"></img>
 
         </>
     )

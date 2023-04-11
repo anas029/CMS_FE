@@ -1,10 +1,12 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
+import {useNavigate} from "react-router-dom"
 
 export default function WebsiteCreate(props) {
     const [website, setWebsite] = useState({ owner: '642fc27dd811361ceea76e0d' })
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
         const key = event.target.name
@@ -46,6 +48,9 @@ export default function WebsiteCreate(props) {
             Axios.post('http://localhost:4000/website', website)
                 .then(res => console.log(res))
                 .catch(error => console.log(error))
+
+                //redirecting to the templates page to choose one of them 
+                navigate('../profile')
         }
     }
     return (
