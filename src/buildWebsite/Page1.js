@@ -23,7 +23,7 @@ export default function Page1(props) {
         }));
     }
     const handleClick = () => {
-        props.handleSave('Home', 'index', myTemplate, data)
+        props.handleSave('Home', 'main', 'index', myTemplate, data)
 
     }
     return (

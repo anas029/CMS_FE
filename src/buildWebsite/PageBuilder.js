@@ -3,9 +3,9 @@ import Axios from "axios"
 
 import Main from "./Main"
 import HeaderPanel from './HeaderPanel'
-import Header from './Header'
+import Header from './Header2'
 import MainPage from './MainPage'
-import Footer from './Footer'
+import Footer from './Footer2'
 import Page1 from './Page1'
 import Page2 from './Page2'
 import Page3 from './Page3'
@@ -14,12 +14,13 @@ import Page5 from './Page5'
 import Page6 from './Page6'
 import Page7 from './Page7'
 import Page8 from './Page8'
+import Home from './Home'
 
 
 export default function PageBuilder(props) {
 
-    const handleSave = (name, path, content, data) => {
-        const pageData = { name, type: 'main', path, content, website: props.websiteID }
+    const handleSave = (name, type, path, content, data) => {
+        const pageData = { name, type, path, content, website: props.websiteID }
 
 
         Axios.post('page', pageData)
@@ -35,14 +36,19 @@ export default function PageBuilder(props) {
             .catch(error => console.log(error))
 
     }
+    const handleSave2 = (name, path, dataPage) => {
+        const data = { name, path, ...dataPage, website: props.websiteID }
+        Axios.post('pagedetail', data)
+            .then(res => console.log(res))
+            .catch(error => console.log(error))
+    }
 
     return (
         <>
-            <div>PageBuilder</div>
-            <p>Add Header</p>
-            <Header />
-            <Page1 handleSave={handleSave} />
-            <Footer />
+            <Header handleSave={handleSave2} edit={true} />
+            <Home handleSave={handleSave2} edit={true} />
+            {/* <Page1 handleSave={handleSave} /> */}
+            <Footer handleSave={handleSave} edit={true} />
         </>
     )
 }

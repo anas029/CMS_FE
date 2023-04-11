@@ -36,7 +36,6 @@ export default function WebsiteCreate(props) {
             <h1>WebsiteCreate</h1>
             {website.id ?
                 <>
-                    <p>add page</p>
                     <PageBuilder websiteID={website.id} />
                 </>
                 :

@@ -18,6 +18,7 @@ function App(props) {
   
 
 
+
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
       if (user) {
@@ -59,7 +60,7 @@ function App(props) {
       });
   };
 
- 
+
 
   return (
     <Router>
