@@ -502,6 +502,7 @@ export default function MainPage(props) {
 `,]
     return (
         <div>
+            {headerOptions.length}
             {headerOptions.map((option, index) => (
                 <div key={index}>{parse(option)}</div>
             ))}
