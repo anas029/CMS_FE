@@ -14,7 +14,7 @@ import Nav from './components/Nav';
 
 function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
-  
+
 
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function App(props) {
       });
   };
 
- 
+
 
   return (
     <Router>
