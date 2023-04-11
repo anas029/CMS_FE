@@ -3,9 +3,10 @@ import Axios from "axios"
 
 
 export default function About(props) {
+    const [created, setCreated] = useState(false)
     const [data, setData] = useState({
         title: 'About Us',
-        pragraph: 'Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet',
+        paragraph: 'Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet',
         counter1: 4444,
         p1: 'Clients',
         counter2: 4444,
@@ -16,10 +17,11 @@ export default function About(props) {
     })
     useEffect(() => {
         if (props.websiteID) {
-            Axios.get(`http://localhost:4000/pagedetail?path=header&website=${props.websiteID}`)
+            Axios.get(`http://localhost:4000/pagedetail?path=about&website=${props.websiteID}`)
                 .then(res => {
                     setData(res.data)
                     console.log(res.data);
+                    setCreated(true)
                 })
                 .catch(error => console.log(error))
         }
@@ -34,14 +36,13 @@ export default function About(props) {
         }));
     }
     const handleClick = () => {
-        props.handleSave('Header', 'header', data)
+        props.handleSave('About', 'about', data)
 
     }
 
     return (
         <div>
-
-            <div className="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+            {(created || props.edit) && (<div className="container-fluid bg-light overflow-hidden my-5 px-lg-0">
                 <div className="container about px-lg-0">
                     <div className="row g-0 mx-lg-0">
                         <div className="col-lg-6 ps-lg-0" style={{ minHeight: '400px' }}>
@@ -54,7 +55,7 @@ export default function About(props) {
                                 <div className="section-title text-start">
                                     <h1 className="display-5 mb-4">{data.title}</h1>
                                 </div>
-                                <p className="mb-4 pb-2">{data.pragraph}</p>
+                                <p className="mb-4 pb-2">{data.paragraph}</p>
                                 <div className="row g-4 mb-4 pb-2">
                                     {data.p1 && (<div className="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
                                         <div className="d-flex align-items-center">
@@ -84,7 +85,7 @@ export default function About(props) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}
             {props.edit && (<>
                 <hr />
                 <div>
