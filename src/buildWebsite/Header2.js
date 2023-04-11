@@ -50,8 +50,6 @@ export default function Header(props) {
 
     return (
         <div>
-            {props.websiteID}
-            <title>Woody - Carpenter Website Template</title>
             <link href="img/favicon.ico" rel="icon"></link>
             <link rel="preconnect" href="https://fonts.googleapis.com"></link>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
