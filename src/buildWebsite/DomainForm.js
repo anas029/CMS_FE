@@ -1,11 +1,10 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
 
-export default function WebsiteCreate(props) {
-    const [website, setWebsite] = useState({ owner: '642fc27dd811361ceea76e0d' })
+export default function DomainForm(props) {
+    const [website, setWebsite] = useState({ ...props.website })
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
-
     const handleChange = (event) => {
         const key = event.target.name
         const value = event.target.value
@@ -23,7 +22,7 @@ export default function WebsiteCreate(props) {
         console.log(website);
     }
     const checkAvailable = () => {
-        Axios.get(`http://localhost:4000/website/domain?domain=${website.domain}`)
+        Axios.get(`website/domain?domain=${website.domain}`)
             .then(response => {
                 if (response.data) {
                     console.log('Unavailable')
@@ -43,14 +42,11 @@ export default function WebsiteCreate(props) {
         console.log('submit')
         checkAvailable()
         if (isAvailable) {
-            Axios.post('http://localhost:4000/website', website)
-                .then(res => console.log(res))
-                .catch(error => console.log(error))
+            props.handleDomain(website)
         }
     }
     return (
         <div>
-            <h1>WebsiteCreate</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="name">Name</label>

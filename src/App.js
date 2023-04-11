@@ -7,13 +7,11 @@ import ForgotPassword from './components/ForgotPassword';
 import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
-import WebsiteCreate from './admin/WebsiteCreate';
-import PageCreate from './admin/PageCreate';
-import PageBuilder from './admin/PageBuilder';
-import PageBuild from './admin/PageBuild';
+import WebsiteCreate from './buildWebsite/WebsiteCreate';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
@@ -22,14 +20,16 @@ function App() {
           const data = {
             idToken,
           };
-          axios.post('/auth/user', data).then((response) => {
-            const updatedUser = response.data.user;
-            setCurrentUser(updatedUser);
+          setTimeout(() => {
+            axios.post('/auth/user', data).then((response) => {
+              const updatedUser = response.data.user;
+              setCurrentUser(updatedUser);
+            })
+              .catch((error) => {
+                console.log(error);
+              });
           })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+        })
       } else {
         setCurrentUser(null);
       }
@@ -123,11 +123,9 @@ function App() {
           <Route path="/profile" element={<Profile currentUser={currentUser} />} />
           <Route path="/website/:websiteDomain/:path" element={<Website />} />
           <Route path="/website/:websiteDomain/*" element={<Website />} />
-          <Route path="/create" element={<WebsiteCreate />} />
+          <Route path="/create" element={<WebsiteCreate owner={currentUser} />} />
         </Routes>
       </div>
-
-      <PageBuild />
     </Router>
   );
 }
