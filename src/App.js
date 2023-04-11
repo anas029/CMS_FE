@@ -9,9 +9,11 @@ import axios from 'axios';
 import Website from './website/Website'
 import WebsiteCreate from './admin/WebsiteCreate';
 import WebsiteBuilder from './components/WebsiteBuilder';
+import WebsiteCreate from './buildWebsite/WebsiteCreate';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
@@ -20,14 +22,16 @@ function App() {
           const data = {
             idToken,
           };
-          axios.post('/auth/user', data).then((response) => {
-            const updatedUser = response.data.user;
-            setCurrentUser(updatedUser);
+          setTimeout(() => {
+            axios.post('/auth/user', data).then((response) => {
+              const updatedUser = response.data.user;
+              setCurrentUser(updatedUser);
+            })
+              .catch((error) => {
+                console.log(error);
+              });
           })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+        })
       } else {
         setCurrentUser(null);
       }
@@ -77,7 +81,7 @@ function App() {
                 <>
                   <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24, objectFit:'cover' }} />
+                      <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24, objectFit: 'cover' }} />
                       {currentUser.firstName}
                     </a>
                     <ul className="dropdown-menu" aria-labelledby="userDropdown">
@@ -91,7 +95,7 @@ function App() {
                           Sign Out
                         </button>
                       </li>
-                      
+
                     </ul>
                   </li>
                   <li className="nav-item">
@@ -123,7 +127,7 @@ function App() {
           </div>
         </div>
       </nav>
-      
+
       <div className="container-fluid" style={{ paddingTop: "50px" }}>
         <div className="container py-4">
           <Routes>
@@ -139,7 +143,7 @@ function App() {
           </Routes>
         </div>
       </div>
-      
+
     </Router>
   );
 }
