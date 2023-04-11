@@ -8,6 +8,7 @@ import App from './App';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import reportWebVitals from './reportWebVitals';
+import "grapesjs/dist/css/grapes.min.css";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
