@@ -7,7 +7,9 @@ import ForgotPassword from './components/ForgotPassword';
 import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
-import WebsiteCreate from './buildWebsite/WebsiteCreate';
+import WebsiteCreate from './admin/WebsiteCreate';
+import WebsiteBuilder from './components/WebsiteBuilder';
+import WebsiteCreateB from './buildWebsite/WebsiteCreate';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -106,6 +108,11 @@ function App() {
                       Create website
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/Createb">
+                      Create websiteB
+                    </Link>
+                  </li>
                 </>
               ) : (
                 <>
@@ -127,18 +134,20 @@ function App() {
       </nav>
 
       <div className="container-fluid" style={{ paddingTop: "50px" }}>
-        {/* <div className="container py-4"> */}
-        <Routes>
-          <Route exact path="/" element={<h1>Welcome to our website!</h1>} />
-          <Route path="/login" element={<SocialLogin />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/profile" element={<Profile currentUser={currentUser} />} />
-          <Route path="/website/:websiteDomain/:path" element={<Website />} />
-          <Route path="/website/:websiteDomain/*" element={<Website />} />
-          <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
-        </Routes>
-        {/* </div> */}
+        <div className="container py-4">
+          <Routes>
+            <Route exact path="/" element={<h1>Welcome to our website!</h1>} />
+            <Route path="/login" element={<SocialLogin />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/profile" element={<Profile currentUser={currentUser} />} />
+            <Route path="/website/:websiteDomain/:path" element={<Website />} />
+            <Route path="/website/:websiteDomain/*" element={<Website />} />
+            <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
+            <Route path="/websitebuilder" element={<WebsiteBuilder />} />
+            <Route path="/createb" element={<WebsiteCreateB currentUser={currentUser} />} />
+          </Routes>
+        </div>
       </div>
 
     </Router>
