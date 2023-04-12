@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js';
 import './index.css';
+import './builder.css'
 import App from './App';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import reportWebVitals from './reportWebVitals';
+
+import "grapesjs/dist/css/grapes.min.css";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

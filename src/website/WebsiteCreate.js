@@ -1,10 +1,27 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-export default function WebsiteCreate(props) {
-    const [website, setWebsite] = useState({ owner: props.owner })
+
+export default function WebsiteCreate({ currentUser }) {
+    const [website, setWebsite] = useState({ owner: '' })
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/');
+        }
+    }, [currentUser, navigate]);
+
+    if (!currentUser) {
+        return null;
+    } else {
+        //setting the current user id
+        website.owner = currentUser.id;
+        console.log(currentUser);
+    }
 
     const handleChange = (event) => {
         const key = event.target.name
@@ -23,7 +40,7 @@ export default function WebsiteCreate(props) {
         console.log(website);
     }
     const checkAvailable = () => {
-        Axios.get(`http://localhost:4000/website/domain?domain=${website.domain}`)
+        Axios.get(`/website/domain?domain=${website.domain}`)
             .then(response => {
                 if (response.data) {
                     console.log('Unavailable')
@@ -43,7 +60,7 @@ export default function WebsiteCreate(props) {
         console.log('submit')
         checkAvailable()
         if (isAvailable) {
-            Axios.post('http://localhost:4000/website', website)
+            Axios.post('/website', website)
                 .then(res => console.log(res))
                 .catch(error => console.log(error))
         }
