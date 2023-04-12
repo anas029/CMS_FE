@@ -16,9 +16,9 @@ export default function Home(props) {
     
     <h1 className='title-in-home'>Our Templates, For Best Experience</h1> <hr></hr>
     <h3 className='title-in-home'>Totaly <strong>FREE</strong> templates, you can Choose the most suitable template for your need and modify it to get the best Experience </h3> 
-    <br/><br/><br/><br/>
-    
-    <div className="card-container w-100">
+    <br/><br/>
+{/*     
+    <div className="card-container">
         <div class="card">
             <a href={<WebsiteCreate />}><img className="card-img-top" src="img/site1.JPG" alt="Cardcap"/></a>
             <div className="card-body">
@@ -128,7 +128,50 @@ export default function Home(props) {
         </div>
 
 
+    </div> */
+    
+<div id="carouselExampleControlsNoTouching" class="carousel slide main2" data-bs-touch="false">
+<div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="2" aria-label="Slide 4"></button>
+    <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="2" aria-label="Slide 5"></button>
+    <button type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide-to="2" aria-label="Slide 6"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="img/site14.JPG" alt="Cardcap"/>
     </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/site15.JPG" alt="Cardcap"/>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/site16.PNG" alt="Cardcap"/>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/site17.webp" alt="Cardcap"/>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/site18.webp" alt="Cardcap"/>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="img/site13.JPG" alt="Cardcap"/>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+    
+    
+    
+    }
     </>
     )
 }
