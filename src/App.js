@@ -7,12 +7,13 @@ import ForgotPassword from './components/ForgotPassword';
 import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
-import WebsiteCreate from './admin/WebsiteCreate';
-import WebsiteBuilder from './components/WebsiteBuilder';
+import WebsiteCreate from './website/WebsiteCreate';
 import WebsiteCreateB from './buildWebsite/WebsiteCreate';
+import UserList from './admin/UserList';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
 
 
   useEffect(() => {
@@ -26,6 +27,9 @@ function App() {
             axios.post('/auth/user', data).then((response) => {
               const updatedUser = response.data.user;
               setCurrentUser(updatedUser);
+              if(updatedUser.type === 'admin'){
+                setIsAdmin(true)
+              }
             })
               .catch((error) => {
                 console.log(error);
@@ -34,6 +38,7 @@ function App() {
         })
       } else {
         setCurrentUser(null);
+        setIsAdmin(false);
       }
       console.log('token status changed, user =>', user);
     })
@@ -98,6 +103,20 @@ function App() {
 
                     </ul>
                   </li>
+                 { isAdmin? ( 
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin Portal
+                        </a>
+                        <ul className="dropdown-menu" aria-labelledby="userDropdown">
+                          <li>
+                            <Link className="dropdown-item" to="/users">
+                              Manage Users
+                            </Link>
+                          </li>
+                        </ul>
+                    </li>
+                  ): null}
                   <li className="nav-item">
                     <Link className="nav-link" to="/website/WebDevGuru/">
                       Website WebDevGuru
@@ -144,8 +163,8 @@ function App() {
             <Route path="/website/:websiteDomain/:path" element={<Website />} />
             <Route path="/website/:websiteDomain/*" element={<Website />} />
             <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
-            <Route path="/websitebuilder" element={<WebsiteBuilder />} />
             <Route path="/createb" element={<WebsiteCreateB currentUser={currentUser} />} />
+            <Route path="/users" element={<UserList />} />
           </Routes>
         </div>
       </div>
