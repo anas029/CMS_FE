@@ -8,6 +8,7 @@ import {
 } from 'firebase/auth';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import Axios from "axios"
+import UserWebsites from './UserWebsites';
 
 function Profile({ currentUser }) {
   const navigate = useNavigate();
@@ -128,42 +129,45 @@ function Profile({ currentUser }) {
   };
 
   return (
-    <div className="row justify-content-center mt-5">
-      <div className="col-md-8 col-lg-6">
-        <div className="card shadow-sm">
-          <div className="card-body">
-            <div className="row align-items-center">
-              <div className="col-auto">
+    <div className="container mt-5">
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <div className="row align-items-center">
+            <div className="col-auto">
 
-              <div className="position-relative d-inline-block">
-                <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle" style={{ width: 100, height: 100, objectFit:'cover' }} />
-                <div className="position-absolute bottom-0 end-0 mb-1">
-                  <label htmlFor="profileImageInput" className="btn btn-primary rounded-circle position-relative" style={{ width: "2rem", height: "2rem" }}>
-                    <i className="fas fa-arrow-up-from-bracket position-absolute top-50 start-50 translate-middle" style={{ fontSize: "1rem" }}></i>
-                  </label>
-                  <input type="file" id="profileImageInput" accept="image/*" onChange={handleImageChange} className="visually-hidden" hidden />
-                </div>
+            <div className="position-relative d-inline-block">
+              <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle" style={{ width: 100, height: 100, objectFit:'cover' }} />
+              <div className="position-absolute bottom-0 end-0 mb-1">
+                <label htmlFor="profileImageInput" className="btn btn-primary rounded-circle position-relative" style={{ width: "2rem", height: "2rem" }}>
+                  <i className="fas fa-arrow-up-from-bracket position-absolute top-50 start-50 translate-middle" style={{ fontSize: "1rem" }}></i>
+                </label>
+                <input type="file" id="profileImageInput" accept="image/*" onChange={handleImageChange} className="visually-hidden" hidden />
               </div>
-              </div>
-              <div className="col">
-                <h2 className="mb-0">{currentUser.firstName} {currentUser.lastName}</h2>
-                <p className="text-muted mb-0">{currentUser.type}</p>
-              </div>
-              <div className="col-auto mt-2">
-              { auth.currentUser.providerData[0].providerId === 'password' ? (
-                <>
-                <Button variant="primary" onClick={handleOpenModal}>Change Password</Button>
-                {' '}
-                </>
-                
-                
-              ) : null }
-                <Button variant="primary" onClick={handleOpenNameModal}>Change Name</Button>          
-              </div>
+            </div>
+            </div>
+            <div className="col">
+              <h2 className="mb-0">{currentUser.firstName} {currentUser.lastName}</h2>
+              <p className="text-muted mb-0">{currentUser.type}</p>
+            </div>
+            <div className="col-auto mt-2">
+            { auth.currentUser.providerData[0].providerId === 'password' ? (
+              <>
+              <Button variant="primary" onClick={handleOpenModal}>Change Password</Button>
+              {' '}
+              </>
+              
+              
+            ) : null }
+              <Button variant="primary" onClick={handleOpenNameModal}>Change Name</Button>          
             </div>
           </div>
         </div>
       </div>
+
+      <div className='mt-5'>
+        <UserWebsites user={currentUser}></UserWebsites>
+      </div>
+
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Change Password</Modal.Title>
