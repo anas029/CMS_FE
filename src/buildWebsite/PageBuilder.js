@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Col, Container, ProgressBar, Row } from 'react-bootstrap';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './MultiStepForm.css';
 
 import Header from './Header';
 import Home from './Home';
@@ -62,7 +61,7 @@ export default function PageBuilder(props) {
   };
 
   return (
-    <Container className="multistep-form mt-10">
+    <Container>
       <Row className="mb-4">
         <Col>
           <ProgressBar now={(step / 7) * 100} />
@@ -70,7 +69,7 @@ export default function PageBuilder(props) {
       </Row>
       <Row>
         <Col md={2}>
-          <div className="step-indicators">
+          <div className="d-flex flex-column">
             <Button variant="link" onClick={() => setStep(1)} active={step === 1}>
               Header
             </Button>
@@ -95,14 +94,12 @@ export default function PageBuilder(props) {
           </div>
         </Col>
         <Col md={10}>
-          <div className="form-content">
-            {renderForm()}
-            {step > 1 && (
-              <Button className="mr-2" variant="secondary" onClick={handleBack}>
-                Back
-              </Button>
-            )}
-          </div>
+          {renderForm()}
+          {step > 1 && (
+            <Button className="mr-2" variant="secondary" onClick={handleBack}>
+              Back
+            </Button>
+          )}
         </Col>
       </Row>
     </Container>
