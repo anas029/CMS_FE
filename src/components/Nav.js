@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import { signOut } from 'firebase/auth';
-
-
-
 
 export default function Nav (props) {
 
     const currentUser = props.currentUser;
+    const isAdmin = props.isAdmin;
 
     const signOutHandle = () => {
         props.signOut(currentUser)
@@ -60,6 +57,20 @@ export default function Nav (props) {
 
                 </ul>
               </li>
+              { isAdmin? ( 
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin Portal
+                        </a>
+                        <ul className="dropdown-menu" aria-labelledby="userDropdown">
+                          <li>
+                            <Link className="dropdown-item" to="/users">
+                              Manage Users
+                            </Link>
+                          </li>
+                        </ul>
+                    </li>
+                  ): null}
               <li className="nav-item">
                 <Link className="nav-link" to="/website/WebDevGuru/">
                   Website WebDevGuru
