@@ -8,8 +8,10 @@ export default function WebsiteEditor(props) {
 
     return (
         <>
+            <br />
+            <h3>Edit Website: {props.website.name}</h3>
             <DomainForm edit={true} website={props.website} />
-            <PageEditor />
+            <PageEditor website={props.website} />
         </>
     )
 }

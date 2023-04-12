@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Axios from "axios"
 
 import Header from './Header'
@@ -19,6 +19,13 @@ export default function PageEditor(props) {
             .then(res => console.log(res))
             .catch(error => console.log(error))
     }
+    useEffect(() => {
+        Axios.get(`/pagedetail/all?website=${props.website.id}`)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => { console.log(err) })
+    }, [])
 
     return (
         <>

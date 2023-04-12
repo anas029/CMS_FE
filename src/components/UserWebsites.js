@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Spinner, Alert } from 'react-bootstrap';
 
-function UserWebsites({user}) {
+function UserWebsites({ user, handleEdit }) {
   const [websites, setWebsites] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,23 +16,20 @@ function UserWebsites({user}) {
 
   function refreshWebsites() {
     setLoading(true);
-    axios.post('/website/user', {user})
-    .then(response => {
+    axios.post('/website/user', { user })
+      .then(response => {
         setWebsites(response.data);
         setError(null);
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error(error);
         setError(error);
-    })
-    .finally(() => {
+      })
+      .finally(() => {
         setLoading(false);
-    })
+      })
   }
 
-  const handleEdit = (website) => {
-    // Handle edit
-  };
 
   const handleDelete = (id) => {
     axios.post('/website/delete', { id })
@@ -52,6 +49,7 @@ function UserWebsites({user}) {
   };
 
   return (
+
     <div className="container">
       <h1>My Websites <span class="text-muted fs-6">({websites.length})</span></h1>
       <button className="btn btn-success mb-3" onClick={handleCreate}>
@@ -97,6 +95,7 @@ function UserWebsites({user}) {
         </table>
       )}
     </div>
+
   );
 }
 
