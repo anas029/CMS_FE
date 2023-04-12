@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Axios from "axios"
+import { uploadFileAndGetURL } from '../firebase';
 
 
 export default function Service(props) {
@@ -57,6 +58,17 @@ export default function Service(props) {
     }
     const handleClick = () => {
         props.handleSave('Services', 'service', data)
+    }
+
+    const handleImageChange = async (event) => {
+        const { files, dataset } = event.target
+        const imgURL = await uploadFileAndGetURL(files[0], Date.now() + 'home');
+        if (imgURL) {
+            let obj = { ...data }
+            obj[dataset.id] = imgURL
+            setData(obj)
+        }
+
     }
 
     return (
@@ -165,6 +177,7 @@ export default function Service(props) {
                 <div>
                     <label htmlFor="card1img">Card 1 Image</label>
                     <input type="text" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card1img" accept="image/*" onChange={handleImageChange} />
                 </div>
 
                 <div>
@@ -182,6 +195,7 @@ export default function Service(props) {
                 <div>
                     <label htmlFor="card2img">Card 2 Image</label>
                     <input type="text" id="card2img" data-id="card2img" value={data.card2img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card2img" accept="image/*" onChange={handleImageChange} />
                 </div>
 
                 <div>
@@ -199,6 +213,7 @@ export default function Service(props) {
                 <div>
                     <label htmlFor="card3img">Card 3 Image</label>
                     <input type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} />
                 </div>
 
                 <div>
@@ -218,6 +233,7 @@ export default function Service(props) {
                 <div>
                     <label htmlFor="card4img">Card 4 Image URL</label>
                     <input type="text" id="card4img" data-id="card4img" value={data.card4img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card4img" accept="image/*" onChange={handleImageChange} />
                 </div>
 
                 <div>
@@ -238,6 +254,7 @@ export default function Service(props) {
                 <div>
                     <label htmlFor="card5img">Card 5 Image URL</label>
                     <input type="text" id="card5img" data-id="card5img" value={data.card5img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card5img" accept="image/*" onChange={handleImageChange} />
                 </div>
 
                 <div>
@@ -258,6 +275,7 @@ export default function Service(props) {
                 <div>
                     <label htmlFor="card6img">Card 6 Image URL</label>
                     <input type="text" id="card6img" data-id="card6img" value={data.card6img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card6img" accept="image/*" onChange={handleImageChange} />
                 </div>
 
                 <button onClick={handleClick}>Save</button>

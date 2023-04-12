@@ -9,8 +9,6 @@ import Feature from './Feature'
 import Projects from './Projects'
 import Footer from './Footer'
 
-
-
 export default function PageBuilder(props) {
 
     const handleSave = (name, type, path, content, data) => {
