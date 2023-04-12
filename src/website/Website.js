@@ -38,7 +38,7 @@ export default function Website(props) {
         if (element.tagName === 'a' && element.attribs.href && element.attribs.href.startsWith('/')) {
             // Add the proxy to the href attribute value
             // element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
-            return <Link to={`/website/WebDevGuru${element.attribs.href}`}>{element.children[0].data}</Link>
+            return <Link to={`/website/${websiteDomain}${element.attribs.href}`}>{element.children[0].data}</Link>
             // element.attribs.href = `/website/WebDevGuru${element.attribs.href}`;
         }
         // // Recurse through any child elements
@@ -58,8 +58,6 @@ export default function Website(props) {
             <Header websiteId={website.id} modifyLinks={modifyLinks} />
             <Main websiteId={website.id} path={path ? path : 'index'} modifyLinks={modifyLinks} />
             <Footer websiteId={website.id} modifyLinks={modifyLinks} />
-            <img alt=" " src="https://designshack.net/wp-content/uploads/adobe-xd-website-templates.jpg"></img>
-
         </>
     )
 }

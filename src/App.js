@@ -8,9 +8,12 @@ import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
 import WebsiteCreate from './admin/WebsiteCreate';
+import WebsiteCreateB from './buildWebsite/WebsiteCreate';
+import Home from './components/Home';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
@@ -19,17 +22,20 @@ function App() {
           const data = {
             idToken,
           };
-          axios.post('/auth/user', data).then((response) => {
-            const updatedUser = response.data.user;
-            setCurrentUser(updatedUser);
+          setTimeout(() => {
+            axios.post('/auth/user', data).then((response) => {
+              const updatedUser = response.data.user;
+              setCurrentUser(updatedUser);
+            })
+              .catch((error) => {
+                console.log(error);
+              });
           })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+        })
       } else {
         setCurrentUser(null);
       }
+      console.log('token status changed, user =>', user);
     })
   }, []);
 
@@ -48,7 +54,7 @@ function App() {
 
   return (
     <Router>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             CMS App
@@ -72,16 +78,42 @@ function App() {
                 </Link>
               </li>
               {currentUser ? (
-                <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24 }} />
-                    {currentUser.firstName}
-                  </a>
-                  <ul className="dropdown-menu" aria-labelledby="userDropdown">
-                    <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
-                    <li><button className="dropdown-item" onClick={signOut}>Sign Out</button></li>
-                  </ul>
-                </li>
+                <>
+                  <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24, objectFit: 'cover' }} />
+                      {currentUser.firstName}
+                    </a>
+                    <ul className="dropdown-menu" aria-labelledby="userDropdown">
+                      <li>
+                        <Link className="dropdown-item" to="/profile">
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <button className="dropdown-item" onClick={signOut}>
+                          Sign Out
+                        </button>
+                      </li>
+
+                    </ul>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/website/WebDevGuru/">
+                      Website WebDevGuru
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/Create">
+                      Create website
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/Createb">
+                      Create websiteB
+                    </Link>
+                  </li>
+                </>
               ) : (
                 <>
                   <li className="nav-item">
@@ -96,33 +128,27 @@ function App() {
                   </li>
                 </>
               )}
-              <li className="nav-item">
-                <Link className="nav-link" to="/website/WebDevGuru/">
-                  Website WebDevGuru
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/Create">
-                  Create website
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
       </nav>
 
-      <div className="container py-4">
-        <Routes>
-          <Route exact path="/" element={<h1>Welcome to our website!</h1>} />
-          <Route path="/login" element={<SocialLogin />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/profile" element={<Profile currentUser={currentUser} />} />
-          <Route path="/website/:websiteDomain/:path" element={<Website />} />
-          <Route path="/website/:websiteDomain/*" element={<Website />} />
-          <Route path="/create" element={<WebsiteCreate />} />
-        </Routes>
+      <div className="container-fluid" style={{ paddingTop: "50px" }}>
+        <div className="container py-4">
+          <Routes>
+            <Route exact path="/" element={ <Home /> } />
+            <Route path="/login" element={<SocialLogin />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/profile" element={<Profile currentUser={currentUser} />} />
+            <Route path="/website/:websiteDomain/:path" element={<Website />} />
+            <Route path="/website/:websiteDomain/*" element={<Website />} />
+            <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
+            <Route path="/createb" element={<WebsiteCreateB currentUser={currentUser} />} />
+          </Routes>
+        </div>
       </div>
+
     </Router>
   );
 }
