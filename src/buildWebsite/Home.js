@@ -45,11 +45,11 @@ export default function Home(props) {
 
     }
     const handleImageChange = async (event) => {
-        const file = event.target.files[0];
-        const imgURL = await uploadFileAndGetURL(file, Date.now() + 'home');
+        const { files, dataset } = event.target
+        const imgURL = await uploadFileAndGetURL(files[0], Date.now() + 'home');
         if (imgURL) {
             let obj = { ...data }
-            obj.imgSrc = imgURL
+            obj[dataset.id] = imgURL
             setData(obj)
         }
 
@@ -81,7 +81,7 @@ export default function Home(props) {
                     <div>
                         <label htmlFor="imgSrc">imgSrc</label>
                         <input type="text" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
-                        <input type="file" id="profileImageInput" accept="image/*" onChange={handleImageChange} />
+                        <input type="file" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} />
 
 
                     </div>
