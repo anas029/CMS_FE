@@ -1,13 +1,13 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
 
 export default function WebsiteCreate({ currentUser }) {
     const [website, setWebsite] = useState({ owner: '' })
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!currentUser) {
@@ -20,7 +20,7 @@ export default function WebsiteCreate({ currentUser }) {
     } else {
         //setting the current user id
         website.owner = currentUser.id;
-        console.log(currentUser);
+        console.log(website.owner);
     }
 
     const handleChange = (event) => {
@@ -63,6 +63,9 @@ export default function WebsiteCreate({ currentUser }) {
             Axios.post('/website', website)
                 .then(res => console.log(res))
                 .catch(error => console.log(error))
+
+                //redirecting to the templates page to choose one of them 
+                navigate('../profile')
         }
     }
     return (
