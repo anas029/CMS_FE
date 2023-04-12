@@ -12,8 +12,6 @@ export default function About(props) {
         counter2: 4444,
         p2: 'Projects',
         btn: 'Explore More'
-
-
     })
     useEffect(() => {
         if (props.websiteID) {
@@ -37,7 +35,6 @@ export default function About(props) {
     }
     const handleClick = () => {
         props.handleSave('About', 'about', data)
-
     }
 
     return (

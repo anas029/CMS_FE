@@ -6,12 +6,12 @@ import HeaderPanel from './HeaderPanel'
 import Header from './Header2'
 import Home from './Home'
 import About from './About'
+import Service from './Service'
 import Footer from './Footer2'
 import MainPage from './MainPage'
 import Page1 from './Page1'
 import Page2 from './Page2'
-import Page4 from './Page4'
-import Page5 from './Page5'
+import Feature from './Feature'
 import Page6 from './Page6'
 import Page7 from './Page7'
 import Page8 from './Page8'
@@ -48,11 +48,13 @@ export default function PageBuilder(props) {
             <Header handleSave={handleSave2} edit={true} />
             <Home handleSave={handleSave2} edit={true} />
             <About handleSave={handleSave2} edit={true} />
-            {/* <Page1 handleSave={handleSave} /> */}
+            <Service handleSave={handleSave2} edit={true} />
+            <Feature handleSave={handleSave2} edit={true} />
             <Footer handleSave={handleSave} edit={true} />
         </>
     )
 }
+//<Page1 handleSave={handleSave} />
 /*<Page2 />
 <Page3 />
 <Page4 />
