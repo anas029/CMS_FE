@@ -8,21 +8,25 @@ export default function Projects(props) {
         heading: 'Our Projects',
         card1title: 'General Carpentry',
         card1description: 'Wooden Furniture Manufacturing And Remodeling',
-        card1img: 'img/portfolio-1.jpg',
+        card1img: '/img/portfolio-1.jpg',
         card2title: 'General Carpentry',
         card2description: 'Wooden Furniture Manufacturing And Remodeling',
-        card2img: 'img/portfolio-2.jpg',
+        card2img: '/img/portfolio-2.jpg',
         card3title: 'General Carpentry',
         card3description: 'Wooden Furniture Manufacturing And Remodeling',
-        card3img: 'img/portfolio-3.jpg',
+        card3img: '/img/portfolio-3.jpg',
     })
     useEffect(() => {
         if (props.websiteID) {
-            Axios.get(`http://localhost:4000/pagedetail?path=projects&website=${props.websiteID}`)
+            console.log('projects -----------------');
+            Axios.get(`/pagedetail?path=projects&website=${props.websiteID}`)
                 .then(res => {
-                    setData(res.data)
-                    console.log(res.data);
-                    setCreated(true)
+                    if (res.data) {
+                        setData(res.data)
+                        console.log(res.data);
+                        console.log(res.data);
+                        setCreated(true)
+                    }
                 })
                 .catch(error => console.log(error))
         }

@@ -4,10 +4,13 @@ import { useParams, Link } from "react-router-dom";
 // import Header from "./Header";
 // import Footer from "./Footer";
 // import Main from "./Main";
-import Header from "../buildWebsite/Header2";
-import Footer from "../buildWebsite/Footer2";
+import Header from "../buildWebsite/Header";
+import Footer from "../buildWebsite/Footer";
 import Home from "../buildWebsite/Home";
 import About from "../buildWebsite/About";
+import Service from "../buildWebsite/Service";
+import Feature from "../buildWebsite/Feature";
+import Projects from "../buildWebsite/Projects";
 
 export default function Website(props) {
     const { websiteDomain, path = 'index' } = useParams()
@@ -63,6 +66,9 @@ export default function Website(props) {
             <Header websiteID={website.id} />
             <Home websiteID={website.id} />
             <About websiteID={website.id} />
+            <Service websiteID={website.id} />
+            <Feature websiteID={website.id} />
+            <Projects websiteID={website.id} />
             <Footer websiteID={website.id} />
         </>
     }

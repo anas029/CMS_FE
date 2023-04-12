@@ -11,15 +11,19 @@ export default function About(props) {
         p1: 'Clients',
         counter2: 4444,
         p2: 'Projects',
-        btn: 'Explore More'
+        btn: 'Explore More',
+        img: '/img/about.jpg',
     })
     useEffect(() => {
         if (props.websiteID) {
             Axios.get(`http://localhost:4000/pagedetail?path=about&website=${props.websiteID}`)
                 .then(res => {
-                    setData(res.data)
-                    console.log(res.data);
-                    setCreated(true)
+                    if (res.data) {
+                        setData(res.data)
+                        console.log(res.data);
+                        console.log(res.data);
+                        setCreated(true)
+                    }
                 })
                 .catch(error => console.log(error))
         }
@@ -44,7 +48,7 @@ export default function About(props) {
                     <div className="row g-0 mx-lg-0">
                         <div className="col-lg-6 ps-lg-0" style={{ minHeight: '400px' }}>
                             <div className="position-relative h-100">
-                                <img className="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style={{ objectFit: "cover" }} alt="" />
+                                <img className="position-absolute img-fluid w-100 h-100" src={data.img} style={{ objectFit: "cover" }} alt="" />
                             </div>
                         </div>
                         <div className="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
@@ -115,6 +119,11 @@ export default function About(props) {
                 <div>
                     <label htmlFor="btn">Button</label>
                     <input type="text" id="btn" data-id="btn" value={data.btn} onChange={handleChange} />
+                </div>
+
+                <div>
+                    <label htmlFor="img">Image</label>
+                    <input type="text" id="img" data-id="img" value={data.img} onChange={handleChange} />
                 </div>
                 <button onClick={handleClick}>Save</button>
             </>)}

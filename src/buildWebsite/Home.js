@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import Axios from "axios"
+import { uploadFileAndGetURL } from '../firebase';
 
 
 export default function Home(props) {
     const [data, setData] = useState({
-        imgSrc: 'https://github.com/anas029/CMS_FE/blob/main/public/img/carousel-3.jpg?raw=true',
+        imgSrc: '/img/carousel-3.jpg',
         heading5: 'WELCOME TO WOODY',
         heading1: 'Best Carpenter & Craftsman Services',
         paragraph: 'Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.',
@@ -12,15 +13,20 @@ export default function Home(props) {
         link1Text: 'Read More',
         link2: '!#',
         link2Text: 'Free Quota',
-    });
-    const myTemplate = `<div class="container-fluid p-0 pb-5"><div class="header-carousel position-relative"><div class="owl-carousel-item position-relative"><img class="img-fluid" src="${data.imgSrc}" alt=""><div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(53, 53, 53, .7);"><div class="container"><div class="row justify-content-center"><div class="col-12 col-lg-8 text-center"><h5 class="text-white text-uppercase mb-3 animated slideInDown">${data.heading5}</h5><h1 class="display-3 text-white animated slideInDown mb-4">${data.heading1}</h1><p class="fs-5 fw-medium text-white mb-4 pb-2">${data.paragraph}</p><a href="${data.link1}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">${data.link1Text}</a><a href="${data.link2}" class="btn btn-light py-md-3 px-md-5 animated slideInRight">${data.link2Text}</a></div></div></div></div></div></div>`
+    })
+    const [created, setCreated] = useState(false)
 
     useEffect(() => {
         console.log(props.websiteID, '+++++++++++++++++++++++++++++++++');
         if (props.websiteID) {
-            Axios.get(`http://localhost:4000/pagedetail?path=index&website=${props.websiteID}`)
+            Axios.get(`/pagedetail?path=index&website=${props.websiteID}`)
                 .then(res => {
-                    setData(res.data)
+                    if (res.data) {
+                        setData(res.data)
+                        console.log(res.data);
+                        console.log(res.data);
+                        setCreated(true)
+                    }
                 })
                 .catch(error => console.log(error))
         }
@@ -38,9 +44,19 @@ export default function Home(props) {
         props.handleSave('Home', 'index', data)
 
     }
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        const imgURL = await uploadFileAndGetURL(file, Date.now() + 'home');
+        if (imgURL) {
+            let obj = { ...data }
+            obj.imgSrc = imgURL
+            setData(obj)
+        }
+
+    }
     return (
         <>
-            <div className="container-fluid p-0 pb-5">
+            {(created || props.edit) && (<div className="container-fluid p-0 pb-5">
                 <div className="header-carousel position-relative">
                     <div className="owl-carousel-item position-relative">
                         <img className="img-fluid" src={data.imgSrc} alt="" />
@@ -58,13 +74,16 @@ export default function Home(props) {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div >)}
             {
                 props.edit && (<>
                     <hr />
                     <div>
                         <label htmlFor="imgSrc">imgSrc</label>
                         <input type="text" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
+                        <input type="file" id="profileImageInput" accept="image/*" onChange={handleImageChange} />
+
+
                     </div>
                     <div>
                         <label htmlFor="heading5">heading5</label>

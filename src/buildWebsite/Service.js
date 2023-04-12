@@ -9,36 +9,39 @@ export default function Service(props) {
         card1title: 'General Carpentry',
         card1p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card1btn: 'Read More',
-        card1img: 'img/service-1.jpg',
+        card1img: '/img/service-1.jpg',
         card2title: 'Furniture Manufacturing',
         card2p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card2btn: 'Read More',
-        card2img: "img/service-2.jpg",
+        card2img: "/img/service-2.jpg",
         card3title: 'Furniture Remodeling',
         card3p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card3btn: 'Read More',
-        card3img: "img/service-3.jpg",
+        card3img: "/img/service-3.jpg",
         card4title: 'Wooden Floor',
         card4p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card4btn: 'Read More',
-        card4img: "img/service-4.jpg",
+        card4img: "/img/service-4.jpg",
         card5title: 'Wooden Furniture',
         card5p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card5btn: 'Read More',
-        card5img: "img/service-5.jpg",
+        card5img: "/img/service-5.jpg",
         card6title: 'Custom Work',
         card6p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card6btn: 'Read More',
-        card6img: "img/service-6.jpg",
+        card6img: "/img/service-6.jpg",
     })
 
     useEffect(() => {
         if (props.websiteID) {
-            Axios.get(`http://localhost:4000/pagedetail?path=service&website=${props.websiteID}`)
+            Axios.get(`/pagedetail?path=service&website=${props.websiteID}`)
                 .then(res => {
-                    setData(res.data)
-                    console.log(res.data);
-                    setCreated(true)
+                    if (res.data) {
+                        setData(res.data)
+                        console.log(res.data);
+                        console.log(res.data);
+                        setCreated(true)
+                    }
                 })
                 .catch(error => console.log(error))
         }
