@@ -7,12 +7,12 @@ import Header from './Header2'
 import Home from './Home'
 import About from './About'
 import Service from './Service'
+import Feature from './Feature'
+import Projects from './Projects'
 import Footer from './Footer2'
 import MainPage from './MainPage'
 import Page1 from './Page1'
 import Page2 from './Page2'
-import Feature from './Feature'
-import Page6 from './Page6'
 import Page7 from './Page7'
 import Page8 from './Page8'
 
@@ -50,6 +50,7 @@ export default function PageBuilder(props) {
             <About handleSave={handleSave2} edit={true} />
             <Service handleSave={handleSave2} edit={true} />
             <Feature handleSave={handleSave2} edit={true} />
+            <Projects handleSave={handleSave2} edit={true} />
             <Footer handleSave={handleSave} edit={true} />
         </>
     )
