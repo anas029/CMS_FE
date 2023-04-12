@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import Axios from "axios"
+import { uploadFileAndGetURL } from '../firebase';
+
 
 
 export default function About(props) {
@@ -39,6 +41,17 @@ export default function About(props) {
     }
     const handleClick = () => {
         props.handleSave('About', 'about', data)
+    }
+
+    const handleImageChange = async (event) => {
+        const { files, dataset } = event.target
+        const imgURL = await uploadFileAndGetURL(files[0], Date.now() + 'home');
+        if (imgURL) {
+            let obj = { ...data }
+            obj[dataset.id] = imgURL
+            setData(obj)
+        }
+
     }
 
     return (
@@ -124,6 +137,8 @@ export default function About(props) {
                 <div>
                     <label htmlFor="img">Image</label>
                     <input type="text" id="img" data-id="img" value={data.img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="img" accept="image/*" onChange={handleImageChange} />
+
                 </div>
                 <button onClick={handleClick}>Save</button>
             </>)}
