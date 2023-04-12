@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Spinner, Alert } from 'react-bootstrap';
 
-function WebsiteList() {
+function UserWebsites({user}) {
   const [websites, setWebsites] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,18 +16,18 @@ function WebsiteList() {
 
   function refreshWebsites() {
     setLoading(true);
-    axios.get('/website/all')
-      .then(response => {
+    axios.post('/website/user', {user})
+    .then(response => {
         setWebsites(response.data);
         setError(null);
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.error(error);
         setError(error);
-      })
-      .finally(() => {
+    })
+    .finally(() => {
         setLoading(false);
-      });
+    })
   }
 
   const handleEdit = (website) => {
@@ -53,7 +53,7 @@ function WebsiteList() {
 
   return (
     <div className="container">
-      <h1>Website List <span class="text-muted fs-6">({websites.length})</span></h1>
+      <h1>My Websites <span class="text-muted fs-6">({websites.length})</span></h1>
       <button className="btn btn-success mb-3" onClick={handleCreate}>
         <i className="fas fa-plus"></i>{' '}
         Create Website
@@ -66,7 +66,6 @@ function WebsiteList() {
         <table className="table">
           <thead className="thead-dark">
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Domain</th>
               <th>Description</th>
@@ -77,7 +76,6 @@ function WebsiteList() {
           <tbody>
             {websites.map(website => (
               <tr key={website._id}>
-                <td>{website.id}</td>
                 <td>{website.name}</td>
                 <td>{website.domain}</td>
                 <td>{website.description}</td>
@@ -102,4 +100,4 @@ function WebsiteList() {
   );
 }
 
-export default WebsiteList;
+export default UserWebsites;
