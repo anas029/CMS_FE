@@ -19,6 +19,7 @@ export default function PageEditor(props) {
             .then(res => console.log(res))
             .catch(error => console.log(error))
     }
+
     useEffect(() => {
         Axios.get(`/pagedetail/all?website=${props.website.id}`)
             .then(res => {
