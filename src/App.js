@@ -7,13 +7,15 @@ import ForgotPassword from './components/ForgotPassword';
 import Profile from './components/Profile';
 import axios from 'axios';
 import Website from './website/Website'
-import WebsiteCreate from './admin/WebsiteCreate';
-import WebsiteCreateB from './buildWebsite/WebsiteCreate';
+import WebsiteCreate from './buildWebsite/WebsiteCreate';
+import UserList from './admin/UserList';
+import Nav from './components/Nav';
+import WebsiteList from './admin/WebsiteList';
 import Home from './components/Home';
 
-function App() {
+function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
-
+  const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
@@ -26,6 +28,9 @@ function App() {
             axios.post('/auth/user', data).then((response) => {
               const updatedUser = response.data.user;
               setCurrentUser(updatedUser);
+              if(updatedUser.type === 'admin'){
+                setIsAdmin(true)
+              }
             })
               .catch((error) => {
                 console.log(error);
@@ -34,6 +39,7 @@ function App() {
         })
       } else {
         setCurrentUser(null);
+        setIsAdmin(false);
       }
       console.log('token status changed, user =>', user);
     })
@@ -52,87 +58,11 @@ function App() {
       });
   };
 
+
+
   return (
     <Router>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            CMS App
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              {currentUser ? (
-                <>
-                  <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle d-flex align-items-center" href="/#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle me-2" style={{ width: 24, height: 24, objectFit: 'cover' }} />
-                      {currentUser.firstName}
-                    </a>
-                    <ul className="dropdown-menu" aria-labelledby="userDropdown">
-                      <li>
-                        <Link className="dropdown-item" to="/profile">
-                          Profile
-                        </Link>
-                      </li>
-                      <li>
-                        <button className="dropdown-item" onClick={signOut}>
-                          Sign Out
-                        </button>
-                      </li>
-
-                    </ul>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/website/WebDevGuru/">
-                      Website WebDevGuru
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/Create">
-                      Create website
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/Createb">
-                      Create websiteB
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      Log In
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/signup">
-                      Sign Up
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-        </div>
-      </nav>
-
+      <Nav currentUser={currentUser} signOut={signOut} isAdmin={isAdmin} />
       <div className="container-fluid" style={{ paddingTop: "50px" }}>
         <div className="container py-4">
           <Routes>
@@ -144,7 +74,8 @@ function App() {
             <Route path="/website/:websiteDomain/:path" element={<Website />} />
             <Route path="/website/:websiteDomain/*" element={<Website />} />
             <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
-            <Route path="/createb" element={<WebsiteCreateB currentUser={currentUser} />} />
+            <Route path="/users" element={<UserList />} />
+            <Route path="/websites" element={<WebsiteList />} />
           </Routes>
         </div>
       </div>

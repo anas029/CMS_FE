@@ -33,11 +33,10 @@ export default function WebsiteCreate(props) {
 
     return (
         <div>
-            <h1>WebsiteCreate</h1>
-            {website.id || true ?
+            <h1>Create Website {website?.id? `(${website.domain})`:null}</h1>
+            {website.id ?
                 <>
-                    <p>add page</p>
-                    <PageBuilder websiteID={website.id} />
+                    <PageBuilder websiteID={website.id} websiteDomain={website.domain} />
                 </>
                 :
                 <DomainForm website={website} handleDomain={handleDomain} />
