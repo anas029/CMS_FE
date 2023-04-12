@@ -6,8 +6,9 @@ function Profile({ currentUser }) {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState(null);
 
-  useEffect(() => {
+  useEffect( () => {
     if (!currentUser) {
+      //NEED FIXING THIS
       navigate('/');
     }
   }, [currentUser, navigate]);

@@ -78,7 +78,7 @@ const SignUp = () => {
               firstName,
               lastName,
             };
-            axios.post('http://localhost:4000/auth/signup', data).then(async (response) => {
+            axios.post('/auth/signup', data).then(async (response) => {
               console.log(response);
               await auth.currentUser.getIdToken(true);
               console.log(auth.currentUser);
