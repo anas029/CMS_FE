@@ -15,7 +15,7 @@ export default function Nav (props) {
   <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">
-        CMS App
+      <img src='/logo.png' height={30} width={30} alt=''></img> CMS App
       </Link>
       <button
         className="navbar-toggler"
@@ -65,6 +65,11 @@ export default function Nav (props) {
                           <li>
                             <Link className="dropdown-item" to="/users">
                               Manage Users
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="dropdown-item" to="/websites">
+                              Manage Websites
                             </Link>
                           </li>
                         </ul>
