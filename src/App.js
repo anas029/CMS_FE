@@ -15,7 +15,7 @@ import Nav from './components/Nav';
 function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
-  
+
   useEffect(() => {
     auth.onIdTokenChanged((user) => {
       if (user) {
@@ -56,6 +56,8 @@ function App(props) {
           });
       });
   };
+
+
 
   return (
     <Router>
