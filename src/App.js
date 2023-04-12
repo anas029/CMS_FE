@@ -11,6 +11,7 @@ import WebsiteCreate from './buildWebsite/WebsiteCreate';
 import UserList from './admin/UserList';
 import Nav from './components/Nav';
 import WebsiteList from './admin/WebsiteList';
+import Home from './components/Home';
 
 function App(props) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -65,7 +66,7 @@ function App(props) {
       <div className="container-fluid" style={{ paddingTop: "50px" }}>
         <div className="container py-4">
           <Routes>
-            <Route exact path="/" element={<h1>Welcome to our website!</h1>} />
+            <Route exact path="/" element={ <Home /> } />
             <Route path="/login" element={<SocialLogin />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
