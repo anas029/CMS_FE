@@ -11,9 +11,8 @@ export default function Nav (props) {
     }
 
   return (
-    <div>
-        
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+  <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">
         CMS App
@@ -71,21 +70,7 @@ export default function Nav (props) {
                         </ul>
                     </li>
                   ): null}
-              <li className="nav-item">
-                <Link className="nav-link" to="/website/WebDevGuru/">
-                  Website WebDevGuru
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/Create">
-                  Create website
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/Createb">
-                  Create websiteB
-                </Link>
-              </li>
+                
             </>
           ) : (
             <>
@@ -105,6 +90,5 @@ export default function Nav (props) {
       </div>
     </div>
   </nav>
-  </div>
   )
 }

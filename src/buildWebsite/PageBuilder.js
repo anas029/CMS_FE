@@ -23,12 +23,12 @@ export default function PageBuilder(props) {
         const pageData = { name, type, path, content, website: props.websiteID }
 
 
-        Axios.post('page', pageData)
+        Axios.post('/page', pageData)
             .then(res => {
                 const page = res.data._id
                 const details = { ...data, page }
                 console.log(details)
-                Axios.post('pagedetail', details)
+                Axios.post('/pagedetail', details)
                     .then(res => console.log(res))
                     .catch(error => console.log(error))
 
@@ -38,7 +38,7 @@ export default function PageBuilder(props) {
     }
     const handleSave2 = (name, path, dataPage) => {
         const data = { name, path, ...dataPage, website: props.websiteID }
-        Axios.post('pagedetail', data)
+        Axios.post('/pagedetail', data)
             .then(res => console.log(res))
             .catch(error => console.log(error))
     }
@@ -55,18 +55,3 @@ export default function PageBuilder(props) {
         </>
     )
 }
-//<Page1 handleSave={handleSave} />
-/*<Page2 />
-<Page3 />
-<Page4 />
-<Page5 />
-<Page6 />
-<Page7 />
-<Page8 />
-//<MainPage />
-*/
-/* <HeaderPanel websiteID={props.websiteID} />
-<p>Add Home</p>
-<Main websiteID={props.websiteID} />
-<p>Add Footer</p>
-<Main websiteID={props.websiteID} /> */
