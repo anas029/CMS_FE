@@ -2,24 +2,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditUserForm from './EditUserForm';
 import CreateUserForm from './CreateUserForm';
+import { Spinner, Alert } from 'react-bootstrap';
 
 function UserList() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
-    refereshUsers();
+    refreshUsers();
   }, []);
 
-  function refereshUsers(){
+  function refreshUsers() {
+    setLoading(true);
     axios.get('/user')
       .then(response => {
         setUsers(response.data.users);
+        setError(null);
       })
       .catch(error => {
         console.error(error);
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -33,14 +43,20 @@ function UserList() {
   };
 
   const handleDelete = (id) => {
-    // Send DELETE request to delete user with given id
+    setLoading(true);
     axios.delete('/user/delete', { data: { id } })
       .then(response => {
         console.log(response);
-        refereshUsers();
+        setSuccessMessage("User deleted successfully.");
+        setError(null);
+        refreshUsers();
       })
       .catch(error => {
         console.error(error);
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -54,13 +70,16 @@ function UserList() {
 
   return (
     <div className="container">
-      {showEditForm && <EditUserForm user={selectedUser} onClose={handleEditFormClose} refreshUsers={refereshUsers} />}
-      {showCreateForm && <CreateUserForm onClose={handleCreateFormClose} refreshUsers={refereshUsers} />}
-      <h1>User List</h1>
+      {showEditForm && <EditUserForm user={selectedUser} onClose={handleEditFormClose} refreshUsers={refreshUsers} />}
+      {showCreateForm && <CreateUserForm onClose={handleCreateFormClose} refreshUsers={refreshUsers} />}
+      <h1>User List <span className="text-muted fs-6">({users.length})</span></h1>
       <button className="btn btn-success mb-3" onClick={handleCreate}>
         <i className="fas fa-plus"></i>{' '}
         Create User
-      </button>
+      </button>{' '}
+      {loading && <Spinner animation="border" variant="primary" />}
+      {error && <Alert variant="danger">{error.message}</Alert>}
+      {successMessage && <Alert variant="success">{successMessage}</Alert>} {/* Conditionally render the success message */}
       <table className="table">
         <thead className="thead-dark">
           <tr>

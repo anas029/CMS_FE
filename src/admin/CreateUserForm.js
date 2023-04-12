@@ -9,9 +9,16 @@ function CreateUserForm({ onClose, refreshUsers }) {
   const [password, setPassword] = useState('');
   const [avatar, setAvatar] = useState(null);
   const [type, setType] = useState('customer');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
+
     try {
       const avatarURL = await uploadFileAndGetURL(avatar, Date.now() + '_' + avatar?.name);
       const response = await axios.post('/user/create', {
@@ -24,11 +31,12 @@ function CreateUserForm({ onClose, refreshUsers }) {
       });
       console.log('User created:', response.data.user);
       refreshUsers();
-      onClose();
-      // Handle success
+      setSuccessMessage('User created successfully');
     } catch (error) {
       console.error('Error creating user:', error);
-      // Handle error
+      setErrorMessage('Error creating user. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,6 +51,16 @@ function CreateUserForm({ onClose, refreshUsers }) {
   return (
     <div>
       <h2>Create User</h2>
+      {errorMessage && (
+          <div className="alert alert-danger" role="alert">
+            {errorMessage}
+          </div>
+        )}
+        {successMessage && (
+          <div className="alert alert-success" role="alert">
+            {successMessage}
+          </div>
+        )}
       <form onSubmit={handleSubmit}>
         <div className="form-group mb-4">
           <label htmlFor="firstName">First Name:</label>
@@ -72,7 +90,10 @@ function CreateUserForm({ onClose, refreshUsers }) {
           </select>
         </div>
         <div className="form-group mb-4">
-          <button type="submit" className="btn btn-primary mr-2">Create User</button>{' '}
+          <button type="submit" className="btn btn-primary mr-2" disabled={isLoading}>
+            {isLoading && <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>}
+            Create
+          </button>{' '}
           <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
