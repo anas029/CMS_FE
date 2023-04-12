@@ -79,11 +79,7 @@ const SocialLogin = () => {
             lastName,
             avatarURL
           };
-<<<<<<< HEAD
-          axios.post('http://localhost:4000/auth/signin', data).then(async (response) => {
-=======
           axios.post('/auth/signin', data).then(async (response) => {
->>>>>>> 5aed270a3d40b243a82a5a523f7b6c74e9ff674f
             console.log(response);
             await auth.currentUser.getIdToken(true);
             console.log("Navigating to profile...");

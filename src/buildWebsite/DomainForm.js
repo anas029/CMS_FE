@@ -2,13 +2,8 @@ import Axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-<<<<<<< HEAD:src/admin/WebsiteCreate.js
-export default function WebsiteCreate(props) {
-    const [website, setWebsite] = useState({ owner: props.owner })
-=======
 export default function DomainForm(props) {
     const [website, setWebsite] = useState({ ...props.website })
->>>>>>> 176b053e11bc781e3a0c983c789d473ebab3e6ec:src/buildWebsite/DomainForm.js
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
     const handleChange = (event) => {
