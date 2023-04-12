@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Spinner, Alert } from 'react-bootstrap';
 
@@ -66,10 +66,10 @@ function WebsiteList() {
         <table className="table">
           <thead className="thead-dark">
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Domain</th>
               <th>Description</th>
+              <th>Link</th>
               <th></th>
               <th></th>
             </tr>
@@ -77,10 +77,17 @@ function WebsiteList() {
           <tbody>
             {websites.map(website => (
               <tr key={website._id}>
-                <td>{website.id}</td>
                 <td>{website.name}</td>
                 <td>{website.domain}</td>
                 <td>{website.description}</td>
+                <td>
+                <td>
+                  <Link to={`/website/${website.domain}/`}>
+                    <i className='fas fa-link'></i>{' '}
+                    Link
+                  </Link>
+                </td>
+                </td>
                 <td>
                   <button className="btn btn-primary" onClick={() => handleEdit(website)}>
                     <i className="fas fa-edit"></i>{' '}
