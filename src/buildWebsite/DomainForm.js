@@ -1,6 +1,8 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Form, Button } from 'react-bootstrap';
+
 
 export default function DomainForm(props) {
     const [website, setWebsite] = useState({ ...props.website })
@@ -46,25 +48,49 @@ export default function DomainForm(props) {
             props.handleDomain(website)
         }
     }
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" required value={website.name ? website.name : ''} onChange={handleChange} placeholder="please enter a name for the website" />
-                </div>
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <textarea name="description" required value={website.description ? website.description : ''} onChange={handleChange} placeholder="Description for the website" cols="30" rows="10" />
-                </div>
-                <div>
-                    <label htmlFor="domain">Domain</label>
-                    <input type="text" name="domain" required value={website.domain ? website.domain : ''} onChange={handleChange} placeholder="At least 6 letters" />
-                    <button type="button" onClick={checkAvailable} disabled={(website.domain && website.domain.length) > 5 ? false : true}>Check Availability</button>
-                    <p>{availStatus}</p>
-                </div>
-                <button disabled={isAvailable ? false : true}>Create</button>
-            </form>
-        </div>
-    )
+//     return (
+//         <div>
+//             <form onSubmit={handleSubmit}>
+//                 <div>
+//                     <label htmlFor="name">Name</label>
+//                     <input type="text" name="name" required value={website.name ? website.name : ''} onChange={handleChange} placeholder="please enter a name for the website" />
+//                 </div>
+//                 <div>
+//                     <label htmlFor="description">Description</label>
+//                     <textarea name="description" required value={website.description ? website.description : ''} onChange={handleChange} placeholder="Description for the website" cols="30" rows="10" />
+//                 </div>
+//                 <div>
+//                     <label htmlFor="domain">Domain</label>
+//                     <input type="text" name="domain" required value={website.domain ? website.domain : ''} onChange={handleChange} placeholder="At least 6 letters" />
+//                     <button type="button" onClick={checkAvailable} disabled={(website.domain && website.domain.length) > 5 ? false : true}>Check Availability</button>
+//                     <p>{availStatus}</p>
+//                 </div>
+//                 <button disabled={isAvailable ? false : true}>Create</button>
+//             </form>
+//         </div>
+//     )
+// }
+
+return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="name">
+        <Form.Label>Name</Form.Label>
+        <Form.Control type="text" name="name" required value={website.name ? website.name : ''} onChange={handleChange} placeholder="Please enter a name for the website" />
+      </Form.Group>
+
+      <Form.Group controlId="description">
+        <Form.Label>Description</Form.Label>
+        <Form.Control as="textarea" name="description" required value={website.description ? website.description : ''} onChange={handleChange} placeholder="Description for the website" rows={10} />
+      </Form.Group>
+
+      <Form.Group controlId="domain">
+        <Form.Label>Domain</Form.Label>
+        <Form.Control type="text" name="domain" required value={website.domain ? website.domain : ''} onChange={handleChange} placeholder="At least 6 letters" />
+        <Button type="button" onClick={checkAvailable} variant={isAvailable ? "success" : "danger"} disabled={(website.domain && website.domain.length) > 5 ? false : true}>Check Availability</Button>
+        <Form.Text>{availStatus}</Form.Text>
+      </Form.Group>
+
+      <Button variant="primary" type="submit" disabled={isAvailable ? false : true}>Create</Button>
+    </Form>
+  );
 }
