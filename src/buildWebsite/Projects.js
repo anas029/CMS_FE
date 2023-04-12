@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import Axios from "axios"
+import { uploadFileAndGetURL } from '../firebase';
+
 
 
 export default function Projects(props) {
@@ -42,6 +44,17 @@ export default function Projects(props) {
     }
     const handleClick = () => {
         props.handleSave('Projects', 'projects', data)
+    }
+
+    const handleImageChange = async (event) => {
+        const { files, dataset } = event.target
+        const imgURL = await uploadFileAndGetURL(files[0], Date.now() + 'home');
+        if (imgURL) {
+            let obj = { ...data }
+            obj[dataset.id] = imgURL
+            setData(obj)
+        }
+
     }
 
     return (
@@ -106,6 +119,8 @@ export default function Projects(props) {
                 <div>
                     <label htmlFor="card1img">Card 1 Image URL</label>
                     <input type="text" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card1img" accept="image/*" onChange={handleImageChange} />
+
                 </div>
                 <div>
                     <label htmlFor="card2title">Card 2 Title</label>
@@ -118,6 +133,8 @@ export default function Projects(props) {
                 <div>
                     <label htmlFor="card2img">Card 2 Image URL</label>
                     <input type="text" id="card2img" data-id="card2img" value={data.card2img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card2img" accept="image/*" onChange={handleImageChange} />
+
                 </div>
                 <div>
                     <label htmlFor="card3title">Card 3 Title</label>
@@ -130,6 +147,8 @@ export default function Projects(props) {
                 <div>
                     <label htmlFor="card3img">Card 3 Image URL</label>
                     <input type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} />
+                    <input type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} />
+
                 </div>
                 <button onClick={handleClick}>Save</button>
             </>)}
