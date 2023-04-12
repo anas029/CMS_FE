@@ -49,18 +49,3 @@ export default function PageBuilder(props) {
         </>
     )
 }
-//<Page1 handleSave={handleSave} />
-/*<Page2 />
-<Page3 />
-<Page4 />
-<Page5 />
-<Page6 />
-<Page7 />
-<Page8 />
-//<MainPage />
-*/
-/* <HeaderPanel websiteID={props.websiteID} />
-<p>Add Home</p>
-<Main websiteID={props.websiteID} />
-<p>Add Footer</p>
-<Main websiteID={props.websiteID} /> */
