@@ -4,7 +4,7 @@
 .card{
   width: 500px;
   overflow: hidden;
-  
+  margin: 5px;
 }
 .card-img-top:hover{
   transform: scale(1.1);
@@ -22,7 +22,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  width: 100vw;
   position: center;
 
 }

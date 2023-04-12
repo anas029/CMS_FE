@@ -18,7 +18,7 @@ export default function Home(props) {
     <h3 className='title-in-home'>Totaly <strong>FREE</strong> templates, you can Choose the most suitable template for your need and modify it to get the best Experience </h3> 
     <br/><br/><br/><br/>
     
-    <div className="card-container">
+    <div className="card-container w-100">
         <div class="card">
             <a href={<WebsiteCreate />}><img className="card-img-top" src="img/site1.JPG" alt="Cardcap"/></a>
             <div className="card-body">

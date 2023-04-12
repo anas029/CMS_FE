@@ -32,7 +32,7 @@ export default function WebsiteCreate(props) {
     }
 
     return (
-        <div>
+        <div className="mt-10">
             <h1>Create Website {website?.id? `(${website.domain})`:null}</h1>
             {website.id ?
                 <>
