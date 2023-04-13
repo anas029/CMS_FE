@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Axios from "axios"
 
 
 export default function Header(props) {
+    const location = useLocation();
+    const { pathname } = location;
+    const firstPath = pathname.split('/')[1];
     const [created, setCreated] = useState(false)
 
     const [data, setData] = useState({
@@ -56,17 +59,17 @@ export default function Header(props) {
 
     return (
         <div>
-            <link href="/img/favicon.ico" rel="icon"></link>
-            <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
-            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"></link>
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"></link>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"></link>
-            <link href="/lib/animate/animate.min.css" rel="stylesheet"></link>
-            <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"></link>
-            <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet"></link>
-            <link href="/css/bootstrap.min.css" rel="stylesheet"></link>
-            <link href="/css/style.css" rel="stylesheet"></link>
+            {(firstPath === 'website') && (<><link href="/img/favicon.ico" rel="icon"></link>
+                <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
+                <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"></link>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"></link>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"></link>
+                <link href="/lib/animate/animate.min.css" rel="stylesheet"></link>
+                <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"></link>
+                <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet"></link>
+                <link href="/css/bootstrap.min.css" rel="stylesheet"></link>
+                <link href="/css/style.css" rel="stylesheet"></link></>)}
 
             {(created || props.edit) && (<><div className="container-fluid bg-light p-0">
                 <div className="row gx-0 d-none d-lg-flex">
