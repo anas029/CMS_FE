@@ -5,7 +5,7 @@ import { uploadFileAndGetURL } from '../firebase';
 
 export default function Feature(props) {
     const [created, setCreated] = useState(false)
-    const [data, setData] = useState({
+    const initData = {
         heading: 'Why Choose Us',
         paragraph: 'Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet',
         icon1title: 'Services',
@@ -18,10 +18,11 @@ export default function Feature(props) {
         icon4subtitle: 'Customer',
         imgSrc: 'img/feature.jpg'
 
-    })
+    }
+    const [data, setData] = useState(initData)
     useEffect(() => {
         if (props.websiteID) {
-            Axios.get(`http://localhost:4000/pagedetail?path=feature&website=${props.websiteID}`)
+            Axios.get(`/pagedetail?path=feature&website=${props.websiteID}`)
                 .then(res => {
                     if (res.data) {
                         setData(res.data)
@@ -127,72 +128,73 @@ export default function Feature(props) {
 
             {props.edit && (<><hr />
                 <div className="row">
-                <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="heading">Heading</label>
-                    <input type="text" id="heading" className="form-control" data-id="heading" value={data.heading} onChange={handleChange} />
-                </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="heading">Heading</label>
+                            <input type="text" id="heading" className="form-control" data-id="heading" value={data.heading} onChange={handleChange} />
+                        </div>
 
-                <div className="form-group">
-                    <label htmlFor="paragraph">Paragraph</label>
-                    <textarea id="paragraph" className="form-control" data-id="paragraph" value={data.paragraph} onChange={handleChange}></textarea>
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="paragraph">Paragraph</label>
+                            <textarea id="paragraph" className="form-control" data-id="paragraph" value={data.paragraph} onChange={handleChange}></textarea>
+                        </div>
 
-                <div className="form-group">
-                    <label htmlFor="icon1title">Icon 1 Title</label>
-                    <input type="text" id="icon1title" className="form-control" data-id="icon1title" value={data.icon1title} onChange={handleChange} />
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="icon1title">Icon 1 Title</label>
+                            <input type="text" id="icon1title" className="form-control" data-id="icon1title" value={data.icon1title} onChange={handleChange} />
+                        </div>
 
-                <div className="form-group">
-                    <label htmlFor="icon1subtitle">Icon 1 Subtitle</label>
-                    <input type="text" id="icon1subtitle" className="form-control" data-id="icon1subtitle" value={data.icon1subtitle} onChange={handleChange} />
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="icon1subtitle">Icon 1 Subtitle</label>
+                            <input type="text" id="icon1subtitle" className="form-control" data-id="icon1subtitle" value={data.icon1subtitle} onChange={handleChange} />
+                        </div>
 
-                <div className="form-group">
-                    <label htmlFor="icon2subtitle">Icon 2 Subtitle</label>
-                    <input type="text" id="icon2subtitle" className="form-control" data-id="icon2subtitle" value={data.icon2subtitle} onChange={handleChange} />
-                </div>
-                </div>
-
-                <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="icon2title">Icon 2 Title</label>
-                    <input type="text" id="icon2title" className="form-control" data-id="icon2title" value={data.icon2title} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="icon3subtitle">Icon 3 Subtitle</label>
-                    <input type="text" id="icon3subtitle" className="form-control" data-id="icon3subtitle" value={data.icon3subtitle} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="icon3title">Icon 3 Title</label>
-                    <input type="text" id="icon3title" className="form-control" data-id="icon3title" value={data.icon3title} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="icon4title">Icon 4 Title</label>
-                    <input type="text" id="icon4title" className="form-control" data-id="icon4title" value={data.icon4title} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="icon4subtitle">Icon 4 Subtitle</label>
-                    <input type="text" id="icon4subtitle" className="form-control" data-id="icon4subtitle" value={data.icon4subtitle} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="imgSrc">Image Source</label>
-                    <div className='input-group'>
-                    <input type="text" id="imgSrc" className="form-control" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" className="form-control" data-id="imgSrc" accept="image/*" onChange={handleImageChange} />
+                        <div className="form-group">
+                            <label htmlFor="icon2subtitle">Icon 2 Subtitle</label>
+                            <input type="text" id="icon2subtitle" className="form-control" data-id="icon2subtitle" value={data.icon2subtitle} onChange={handleChange} />
+                        </div>
                     </div>
-                    
+
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="icon2title">Icon 2 Title</label>
+                            <input type="text" id="icon2title" className="form-control" data-id="icon2title" value={data.icon2title} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="icon3subtitle">Icon 3 Subtitle</label>
+                            <input type="text" id="icon3subtitle" className="form-control" data-id="icon3subtitle" value={data.icon3subtitle} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="icon3title">Icon 3 Title</label>
+                            <input type="text" id="icon3title" className="form-control" data-id="icon3title" value={data.icon3title} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="icon4title">Icon 4 Title</label>
+                            <input type="text" id="icon4title" className="form-control" data-id="icon4title" value={data.icon4title} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="icon4subtitle">Icon 4 Subtitle</label>
+                            <input type="text" id="icon4subtitle" className="form-control" data-id="icon4subtitle" value={data.icon4subtitle} onChange={handleChange} />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="imgSrc">Image Source</label>
+                            <div className='input-group'>
+                                <input type="text" id="imgSrc" className="form-control" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
+                                <input type="file" id="profileImageInput" className="form-control" data-id="imgSrc" accept="image/*" onChange={handleImageChange} />
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-            <button className="btn btn-primary" onClick={handleClick}>Save</button>{' '}
+                <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
+                {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('index'); setData(initData) }}>Delete</button>)}&nbsp;
             </>
-  
+
             )}
         </>
     )

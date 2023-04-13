@@ -79,7 +79,7 @@ function UserWebsites({ user, handleEdit }) {
                 <td>{website.domain}</td>
                 <td>{website.description}</td>
                 <td>
-                  <Link to={`/website/${website.domain}/`}>
+                  <Link to={`/website/${website.domain}/`} target="_blank">
                     <i className='fas fa-link'></i>{' '}
                     Link
                   </Link>

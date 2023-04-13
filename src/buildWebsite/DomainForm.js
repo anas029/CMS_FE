@@ -49,7 +49,6 @@ export default function DomainForm(props) {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('submit')
         checkAvailable()
         if (isAvailable) {
             props.handleDomain(website)

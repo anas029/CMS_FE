@@ -76,60 +76,44 @@ export default function Home(props) {
                     </div>
                 </div>
             </div >)}
-            {
-                props.edit && (<>
-                    <hr />
-
-                    <div class="row"> <div class="col-sm-6"> <div class="form-group"> <label for="imgSrc">imgSrc</label> <div class="input-group"> <input type="text" class="form-control" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} /> <input type="file" class="form-control" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} /> </div> </div>
+            {props.edit && (<>
+                <hr />
+                <div class="row"> <div class="col-sm-6"> <div class="form-group"> <label for="imgSrc">imgSrc</label> <div class="input-group"> <input type="text" class="form-control" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} /> <input type="file" class="form-control" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} /> </div> </div>
                     <div class="form-group">
-                    <label for="heading5">heading5</label>
-                    <input type="text" class="form-control" id="heading5" data-id="heading5" value={data.heading5} onChange={handleChange} />
-/**/
-                    <div>
-                        <label htmlFor="imgSrc">imgSrc</label>
-                        <input type="text" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
-                        <input type="file" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} />
-                    </div>
-                    <div>
-                        <label htmlFor="heading5">heading5</label>
-                        <input type="text" id="heading5" data-id="heading5" value={data.heading5} onChange={handleChange} />
-
+                        <label for="heading5">heading5</label>
+                        <input type="text" class="form-control" id="heading5" data-id="heading5" value={data.heading5} onChange={handleChange} />
                     </div>
 
                     <div class="form-group">
-                    <label for="heading1">heading1</label>
-                    <input type="text" class="form-control" id="heading1" data-id="heading1" value={data.heading1} onChange={handleChange} />
+                        <label for="heading1">heading1</label>
+                        <input type="text" class="form-control" id="heading1" data-id="heading1" value={data.heading1} onChange={handleChange} />
                     </div>
-                    </div> <div class="col-sm-6"> <div class="form-group"> <label for="paragraph">paragraph</label> <input type="text" class="form-control" id="paragraph" data-id="paragraph" value={data.paragraph} onChange={handleChange} /> </div>
-                    <div class="form-group">
-                    <label for="link1">link1</label>
-                    <input type="text" class="form-control" id="link1" data-id="link1" value={data.link1} onChange={handleChange} />
-                    </div>
+                </div> <div class="col-sm-6"> <div class="form-group"> <label for="paragraph">paragraph</label> <input type="text" class="form-control" id="paragraph" data-id="paragraph" value={data.paragraph} onChange={handleChange} /> </div>
+                        <div class="form-group">
+                            <label for="link1">link1</label>
+                            <input type="text" class="form-control" id="link1" data-id="link1" value={data.link1} onChange={handleChange} />
+                        </div>
 
-                    <div class="form-group">
-                    <label for="link1Text">link1Text</label>
-                    <input type="text" class="form-control" id="link1Text" data-id="link1Text" value={data.link1Text} onChange={handleChange} />
-                    </div>
+                        <div class="form-group">
+                            <label for="link1Text">link1Text</label>
+                            <input type="text" class="form-control" id="link1Text" data-id="link1Text" value={data.link1Text} onChange={handleChange} />
+                        </div>
 
-                    <div class="form-group">
-                    <label for="link2">link2</label>
-                    <input type="text" class="form-control" id="link2" data-id="link2" value={data.link2} onChange={handleChange} />
-                    </div>
+                        <div class="form-group">
+                            <label for="link2">link2</label>
+                            <input type="text" class="form-control" id="link2" data-id="link2" value={data.link2} onChange={handleChange} />
+                        </div>
 
-                    <div class="form-group">
-                    <label for="link2Text">link2Text</label>
-                    <input type="text" class="form-control" id="link2Text" data-id="link2Text" value={data.link2Text} onChange={handleChange} />
-                    </div>
+                        <div class="form-group">
+                            <label for="link2Text">link2Text</label>
+                            <input type="text" class="form-control" id="link2Text" data-id="link2Text" value={data.link2Text} onChange={handleChange} />
+                        </div>
 
 
-                    
                     </div> </div>
-                    <button type="button" class="btn btn-primary" onClick={handleClick}>Save</button>{' '}
-/**/
-                    <button onClick={handleClick}>Save</button>
-                    <button onClick={() => { props.handleDelete('index'); setData(initData) }}>delete</button>
-
-                </>)
+                <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
+                {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('index'); setData(initData) }}>Delete</button>)}&nbsp;
+            </>)
             }
         </>
 

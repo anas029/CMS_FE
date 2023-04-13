@@ -6,7 +6,7 @@ import { uploadFileAndGetURL } from '../firebase';
 
 export default function Projects(props) {
     const [created, setCreated] = useState(false)
-    const [data, setData] = useState({
+    const initData = {
         heading: 'Our Projects',
         card1title: 'General Carpentry',
         card1description: 'Wooden Furniture Manufacturing And Remodeling',
@@ -17,7 +17,8 @@ export default function Projects(props) {
         card3title: 'General Carpentry',
         card3description: 'Wooden Furniture Manufacturing And Remodeling',
         card3img: '/img/portfolio-3.jpg',
-    })
+    }
+    const [data, setData] = useState(initData)
     useEffect(() => {
         if (props.websiteID) {
             console.log('projects -----------------');
@@ -58,7 +59,7 @@ export default function Projects(props) {
     }
 
     return (
-        <div>
+        <>
             {(created || props.edit) && (<div className="container-xxl py-5">
                 <div className="container">
                     <div className="section-title text-center">
@@ -102,56 +103,64 @@ export default function Projects(props) {
                 </div>
             </div>
             )}
-            {props.edit && (<>
-                <hr />
-                <div>
-                    <label htmlFor="heading">Heading</label>
-                    <input type="text" id="heading" data-id="heading" value={data.heading} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card1title">Card 1 Title</label>
-                    <input type="text" id="card1title" data-id="card1title" value={data.card1title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card1description">Card 1 Description</label>
-                    <textarea id="card1description" data-id="card1description" value={data.card1description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card1img">Card 1 Image URL</label>
-                    <input type="text" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="card1img" accept="image/*" onChange={handleImageChange} />
+            {props.edit && (<><hr />
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="form-group py-1">
+                            <label htmlFor="heading">Heading</label>
+                            <input className="form-control" type="text" id="heading" data-id="heading" value={data.heading} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card1title">Card 1 Title</label>
+                            <input className="form-control" type="text" id="card1title" data-id="card1title" value={data.card1title} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card1description">Card 1 Description</label>
+                            <textarea className="form-control" id="card1description" data-id="card1description" value={data.card1description} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card1img">Card 1 Image URL</label>
+                            <input className="form-control" type="text" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
+                            <input className="form-control" type="file" id="profileImageInput" data-id="card1img" accept="image/*" onChange={handleImageChange} />
 
-                </div>
-                <div>
-                    <label htmlFor="card2title">Card 2 Title</label>
-                    <input type="text" id="card2title" data-id="card2title" value={data.card2title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card2description">Card 2 Description</label>
-                    <textarea id="card2description" data-id="card2description" value={data.card2description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card2img">Card 2 Image URL</label>
-                    <input type="text" id="card2img" data-id="card2img" value={data.card2img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="card2img" accept="image/*" onChange={handleImageChange} />
+                        </div>
+                    </div>
 
-                </div>
-                <div>
-                    <label htmlFor="card3title">Card 3 Title</label>
-                    <input type="text" id="card3title" data-id="card3title" value={data.card3title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card3description">Card 3 Description</label>
-                    <textarea id="card3description" data-id="card3description" value={data.card3description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card3img">Card 3 Image URL</label>
-                    <input type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} />
+                    <div className="col-md-6">
+                        <div className="form-group py-1">
+                            <label htmlFor="card2title">Card 2 Title</label>
+                            <input className="form-control" type="text" id="card2title" data-id="card2title" value={data.card2title} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card2description">Card 2 Description</label>
+                            <textarea className="form-control" id="card2description" data-id="card2description" value={data.card2description} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card2img">Card 2 Image URL</label>
+                            <input className="form-control" type="text" id="card2img" data-id="card2img" value={data.card2img} onChange={handleChange} />
+                            <input className="form-control" type="file" id="profileImageInput" data-id="card2img" accept="image/*" onChange={handleImageChange} />
 
+                        </div>
+
+                        <div className="form-group py-1">
+                            <label htmlFor="card3title">Card 3 Title</label>
+                            <input className="form-control" type="text" id="card3title" data-id="card3title" value={data.card3title} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card3description">Card 3 Description</label>
+                            <textarea className="form-control" id="card3description" data-id="card3description" value={data.card3description} onChange={handleChange} />
+                        </div>
+                        <div className="form-group py-1">
+                            <label htmlFor="card3img">Card 3 Image URL</label>
+                            <input className="form-control" type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} />
+                            <input className="form-control" type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} />
+
+                        </div>
+                    </div>
                 </div>
-                <button onClick={handleClick}>Save</button>
+                <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
+                {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('projects'); setData(initData) }}>Delete</button>)}&nbsp;
             </>)}
-        </div>
+        </>
     )
 }

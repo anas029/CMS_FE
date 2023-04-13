@@ -24,17 +24,14 @@ export default function PageEditor(props) {
         content: '',
         website: props.websiteID,
     });
-    const navigate = useNavigate();
-
     const handleSave = (name, path, dataPage) => {
         const data = { name, path, ...dataPage, website: props.website.id };
         Axios.post('/pagedetail', data)
             .then((res) => {
                 setFormData({ ...formData, ...dataPage });
-                setStep(step + 1);
-                if (step === 7) {
-                    navigate(`/website/${props.websiteDomain}/`)
-                }
+                setStep(step + 1)
+                if (step === 7)
+                    setStep(1)
             })
             .catch((error) => console.log(error));
     };
@@ -54,19 +51,19 @@ export default function PageEditor(props) {
     const renderForm = () => {
         switch (step) {
             case 1:
-                return <Header handleSave={handleSave} edit={true} websiteID={props.website.id} />
+                return <Header handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             case 2:
                 return <Home handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             case 3:
-                return <About handleSave={handleSave} edit={true} websiteID={props.website.id} />
+                return <About handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             case 4:
-                return <Service handleSave={handleSave} edit={true} websiteID={props.website.id} />
+                return <Service handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             case 5:
-                return <Feature handleSave={handleSave} edit={true} websiteID={props.website.id} />
+                return <Feature handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             case 6:
-                return <Projects handleSave={handleSave} edit={true} websiteID={props.website.id} />
+                return <Projects handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             case 7:
-                return <Footer handleSave={handleSave} edit={true} websiteID={props.website.id} />
+                return <Footer handleSave={handleSave} handleDelete={handleDelete} edit={true} websiteID={props.website.id} />
             default:
                 return null;
         }

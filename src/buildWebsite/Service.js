@@ -5,7 +5,7 @@ import { uploadFileAndGetURL } from '../firebase';
 
 export default function Service(props) {
     const [created, setCreated] = useState(false)
-    const [data, setData] = useState({
+    const initData = {
         heading: 'Our Services',
         card1title: 'General Carpentry',
         card1p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
@@ -31,7 +31,8 @@ export default function Service(props) {
         card6p: 'Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.',
         card6btn: 'Read More',
         card6img: "/img/service-6.jpg",
-    })
+    }
+    const [data, setData] = useState(initData)
 
     useEffect(() => {
         if (props.websiteID) {
@@ -158,7 +159,7 @@ export default function Service(props) {
             {props.edit && (<>
                 <hr />
                 <div class="row">
-                     <div class="col-sm-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label" htmlFor="heading">Heading</label>
                             <input class="form-control" type="text" id="heading" data-id="heading" value={data.heading} onChange={handleChange} />
@@ -182,7 +183,7 @@ export default function Service(props) {
                             <label class="control-label" for="card1img">Card 1 Image</label>
                             <div className='input-group'>
                                 <input class="form-control" type="text" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
-                                <input class="form-control" type="file" id="profileImageInput" data-id="card1img" accept="image/*"  className="form-control" onChange={handleImageChange} />
+                                <input class="form-control" type="file" id="profileImageInput" data-id="card1img" accept="image/*" className="form-control" onChange={handleImageChange} />
                             </div>
                         </div>
 
@@ -214,94 +215,95 @@ export default function Service(props) {
                             <label class="control-label" for="card3p">Card 3 Paragraph</label>
                             <input class="form-control" type="text" id="card3p" data-id="card3p" value={data.card3p} onChange={handleChange} />
                         </div>
-                        
+
                         <div className="form-group">
-                        <label htmlFor="card3btn" className="form-label">Card 3 Button</label>
-                        <input type="text" id="card3btn" data-id="card3btn" value={data.card3btn} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card3btn" className="form-label">Card 3 Button</label>
+                            <input type="text" id="card3btn" data-id="card3btn" value={data.card3btn} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card3img" className="form-label">Card 3 Image</label>
-                        <div className="input-group">
-                            <input type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} className="form-control" />
-                            <input type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} className="form-control" />
+                            <label htmlFor="card3img" className="form-label">Card 3 Image</label>
+                            <div className="input-group">
+                                <input type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} className="form-control" />
+                                <input type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} className="form-control" />
+                            </div>
                         </div>
-                        </div>
-                     </div>
-                     <div class="col-sm-6">
-                        
+                    </div>
+                    <div class="col-sm-6">
+
                         <div className="form-group">
-                        <label htmlFor="card4title" className="form-label">Card 4 Title</label>
-                        <input type="text" id="card4title" data-id="card4title" value={data.card4title} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card4title" className="form-label">Card 4 Title</label>
+                            <input type="text" id="card4title" data-id="card4title" value={data.card4title} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card4p" className="form-label">Card 4 Paragraph</label>
-                        <input type="text" id="card4p" data-id="card4p" value={data.card4p} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card4p" className="form-label">Card 4 Paragraph</label>
+                            <input type="text" id="card4p" data-id="card4p" value={data.card4p} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card4btn" className="form-label">Card 4 Button Text</label>
-                        <input type="text" id="card4btn" data-id="card4btn" value={data.card4btn} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card4btn" className="form-label">Card 4 Button Text</label>
+                            <input type="text" id="card4btn" data-id="card4btn" value={data.card4btn} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card4img" className="form-label">Card 4 Image URL</label>
-                        <div className="input-group">
-                            <input type="text" id="card4img" data-id="card4img" value={data.card4img} onChange={handleChange} className="form-control" />
-                            <input type="file" id="profileImageInput" data-id="card4img" accept="image/*" onChange={handleImageChange} className="form-control" />
-                        </div>
+                            <label htmlFor="card4img" className="form-label">Card 4 Image URL</label>
+                            <div className="input-group">
+                                <input type="text" id="card4img" data-id="card4img" value={data.card4img} onChange={handleChange} className="form-control" />
+                                <input type="file" id="profileImageInput" data-id="card4img" accept="image/*" onChange={handleImageChange} className="form-control" />
+                            </div>
                         </div>
 
-
-                        <div className="form-group">
-                        <label htmlFor="card5title" className="form-label">Card 5 Title</label>
-                        <input type="text" id="card5title" data-id="card5title" value={data.card5title} onChange={handleChange} className="form-control" />
-                        </div>
 
                         <div className="form-group">
-                        <label htmlFor="card5p" className="form-label">Card 5 Paragraph</label>
-                        <input type="text" id="card5p" data-id="card5p" value={data.card5p} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card5title" className="form-label">Card 5 Title</label>
+                            <input type="text" id="card5title" data-id="card5title" value={data.card5title} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card5btn" className="form-label">Card 5 Button Text</label>
-                        <input type="text" id="card5btn" data-id="card5btn" value={data.card5btn} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card5p" className="form-label">Card 5 Paragraph</label>
+                            <input type="text" id="card5p" data-id="card5p" value={data.card5p} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card5img" className="form-label">Card 5 Image URL</label>
-                        <div className="input-group">
-                            <input type="text" id="card5img" data-id="card5img" value={data.card5img} onChange={handleChange} className="form-control" />
-                            <input type="file" id="profileImageInput" data-id="card5img" accept="image/*" onChange={handleImageChange} className="form-control" />
-                        </div>
+                            <label htmlFor="card5btn" className="form-label">Card 5 Button Text</label>
+                            <input type="text" id="card5btn" data-id="card5btn" value={data.card5btn} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card6title" className="form-label">Card 6 Title</label>
-                        <input type="text" id="card6title" data-id="card6title" value={data.card6title} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card5img" className="form-label">Card 5 Image URL</label>
+                            <div className="input-group">
+                                <input type="text" id="card5img" data-id="card5img" value={data.card5img} onChange={handleChange} className="form-control" />
+                                <input type="file" id="profileImageInput" data-id="card5img" accept="image/*" onChange={handleImageChange} className="form-control" />
+                            </div>
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card6p" className="form-label">Card 6 Paragraph</label>
-                        <input type="text" id="card6p" data-id="card6p" value={data.card6p} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card6title" className="form-label">Card 6 Title</label>
+                            <input type="text" id="card6title" data-id="card6title" value={data.card6title} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card6btn" className="form-label">Card 6 Button Text</label>
-                        <input type="text" id="card6btn" data-id="card6btn" value={data.card6btn} onChange={handleChange} className="form-control" />
+                            <label htmlFor="card6p" className="form-label">Card 6 Paragraph</label>
+                            <input type="text" id="card6p" data-id="card6p" value={data.card6p} onChange={handleChange} className="form-control" />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="card6img" className="form-label">Card 6 Image URL</label>
-                        <div className="input-group">
-                            <input type="text" id="card6img" data-id="card6img" value={data.card6img} onChange={handleChange} className="form-control" />
-                            <input type="file" id="profileImageInput" data-id="card6img" accept="image/*" onChange={handleImageChange} className="form-control" />
+                            <label htmlFor="card6btn" className="form-label">Card 6 Button Text</label>
+                            <input type="text" id="card6btn" data-id="card6btn" value={data.card6btn} onChange={handleChange} className="form-control" />
                         </div>
+
+                        <div className="form-group">
+                            <label htmlFor="card6img" className="form-label">Card 6 Image URL</label>
+                            <div className="input-group">
+                                <input type="text" id="card6img" data-id="card6img" value={data.card6img} onChange={handleChange} className="form-control" />
+                                <input type="file" id="profileImageInput" data-id="card6img" accept="image/*" onChange={handleImageChange} className="form-control" />
+                            </div>
                         </div>
-                     </div>
+                    </div>
                 </div>
-                <button onClick={handleClick} className="btn btn-primary">Save</button>{' '}
+                <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
+                {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('service'); setData(initData) }}>Delete</button>)}&nbsp;
             </>)}
         </>
     )

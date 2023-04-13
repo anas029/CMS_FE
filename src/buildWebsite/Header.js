@@ -8,8 +8,7 @@ export default function Header(props) {
     const { pathname } = location;
     const firstPath = pathname.split('/')[1];
     const [created, setCreated] = useState(false)
-
-    const [data, setData] = useState({
+    const initData = {
         address: "123 Street, New York, USA",
         hours: "Mon - Fri : 09.00 AM - 09.00 PM",
         phone: "+012 345 6789",
@@ -28,7 +27,8 @@ export default function Header(props) {
         team: 'Our Team',
         contact: 'Contact',
 
-    })
+    }
+    const [data, setData] = useState(initData)
     useEffect(() => {
         if (props.websiteID) {
             Axios.get(`/pagedetail?path=header&website=${props.websiteID}`)
@@ -128,95 +128,96 @@ export default function Header(props) {
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="form-group">
-                        <label htmlFor="address">Address</label>
-                        <input type="text" id="address" className="form-control" data-id="address" value={data.address} onChange={handleChange} />
+                            <label htmlFor="address">Address</label>
+                            <input type="text" id="address" className="form-control" data-id="address" value={data.address} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="hours">Hours</label>
-                        <input type="text" id="hours" className="form-control" data-id="hours" value={data.hours} onChange={handleChange} />
+                            <label htmlFor="hours">Hours</label>
+                            <input type="text" id="hours" className="form-control" data-id="hours" value={data.hours} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="phone">Phone</label>
-                        <input type="text" id="phone" className="form-control" data-id="phone" value={data.phone} onChange={handleChange} />
+                            <label htmlFor="phone">Phone</label>
+                            <input type="text" id="phone" className="form-control" data-id="phone" value={data.phone} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="facebook">Facebook</label>
-                        <input type="text" id="facebook" className="form-control" data-id="facebook" value={data.facebook} onChange={handleChange} />
+                            <label htmlFor="facebook">Facebook</label>
+                            <input type="text" id="facebook" className="form-control" data-id="facebook" value={data.facebook} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="twitter">Twitter</label>
-                        <input type="text" id="twitter" className="form-control" data-id="twitter" value={data.twitter} onChange={handleChange} />
+                            <label htmlFor="twitter">Twitter</label>
+                            <input type="text" id="twitter" className="form-control" data-id="twitter" value={data.twitter} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="linkedin">LinkedIn</label>
-                        <input type="text" id="linkedin" className="form-control" data-id="linkedin" value={data.linkedin} onChange={handleChange} />
+                            <label htmlFor="linkedin">LinkedIn</label>
+                            <input type="text" id="linkedin" className="form-control" data-id="linkedin" value={data.linkedin} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="instagram">Instagram</label>
-                        <input type="text" id="instagram" className="form-control" data-id="instagram" value={data.instagram} onChange={handleChange} />
+                            <label htmlFor="instagram">Instagram</label>
+                            <input type="text" id="instagram" className="form-control" data-id="instagram" value={data.instagram} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className="col-sm-6">
                         <div className="form-group">
-                        <label htmlFor="homeLink">Home Link</label>
-                        <input type="text" id="homeLink" className="form-control" data-id="homeLink" value={data.homeLink} onChange={handleChange} />
+                            <label htmlFor="homeLink">Home Link</label>
+                            <input type="text" id="homeLink" className="form-control" data-id="homeLink" value={data.homeLink} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" className="form-control" data-id="name" value={data.name} onChange={handleChange} />
+                            <label htmlFor="name">Name</label>
+                            <input type="text" id="name" className="form-control" data-id="name" value={data.name} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="home">Home</label>
-                        <input type="text" id="home" className="form-control" data-id="home" value={data.home} onChange={handleChange} />
+                            <label htmlFor="home">Home</label>
+                            <input type="text" id="home" className="form-control" data-id="home" value={data.home} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="about">About</label>
-                        <input type="text" id="about" className="form-control" data-id="about" value={data.about} onChange={handleChange} />
+                            <label htmlFor="about">About</label>
+                            <input type="text" id="about" className="form-control" data-id="about" value={data.about} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="services">Services</label>
-                        <input type="text" id="services" className="form-control" data-id="services" value={data.services} onChange={handleChange} />
+                            <label htmlFor="services">Services</label>
+                            <input type="text" id="services" className="form-control" data-id="services" value={data.services} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="projects">Projects</label>
-                        <input type="text" id="projects" className="form-control" data-id="projects" value={data.projects} onChange={handleChange} />
+                            <label htmlFor="projects">Projects</label>
+                            <input type="text" id="projects" className="form-control" data-id="projects" value={data.projects} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="feature">Feature</label>
-                        <input type="text" id="feature" className="form-control" data-id="feature" value={data.feature} onChange={handleChange} />
+                            <label htmlFor="feature">Feature</label>
+                            <input type="text" id="feature" className="form-control" data-id="feature" value={data.feature} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="quote">Quote</label>
-                        <input type="text" id="quote" className="form-control" data-id="quote" value={data.quote} onChange={handleChange} />
+                            <label htmlFor="quote">Quote</label>
+                            <input type="text" id="quote" className="form-control" data-id="quote" value={data.quote} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="team">Team</label>
-                        <input type="text" id="team" className="form-control" data-id="team" value={data.team} onChange={handleChange} />
+                            <label htmlFor="team">Team</label>
+                            <input type="text" id="team" className="form-control" data-id="team" value={data.team} onChange={handleChange} />
                         </div>
 
                         <div className="form-group">
-                        <label htmlFor="contact">Contact</label>
-                        <input type="text" id="contact" className="form-control" data-id="contact" value={data.contact} onChange={handleChange} />
+                            <label htmlFor="contact">Contact</label>
+                            <input type="text" id="contact" className="form-control" data-id="contact" value={data.contact} onChange={handleChange} />
                         </div>
-                    </div> 
-                    
+                    </div>
+
                 </div>
-                <button className="btn btn-primary" onClick={handleClick}>Save</button>
+                <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
+                {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('header'); setData(initData) }}>Delete</button>)}&nbsp;
             </>)}
         </div >
     )

@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Spinner, Alert } from 'react-bootstrap';
+import WebsiteEditor from '../buildWebsite/WebsiteEditor';
 
 function WebsiteList() {
   const [websites, setWebsites] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null); // New state variable for success message
+  const [isEdit, setIsEdit] = useState(false)
+  const [currentWebsite, setCurrentWebsite] = useState({})
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,8 +34,9 @@ function WebsiteList() {
   }
 
   const handleEdit = (website) => {
-    // Handle edit
-  };
+    setIsEdit(true)
+    setCurrentWebsite(website)
+  }
 
   const handleDelete = (id) => {
     axios.post('/website/delete', { id })
@@ -54,58 +58,69 @@ function WebsiteList() {
   return (
     <div className="container-fluid" style={{ paddingTop: "50px" }}>
       <div className="container py-4">
-        <h1>Website List <span class="text-muted fs-6">({websites.length})</span></h1>
-        <button className="btn btn-success mb-3" onClick={handleCreate}>
-          <i className="fas fa-plus"></i>{' '}
-          Create Website
-        </button>
-        {error && <Alert variant="danger">{error.message}</Alert>}
-        {successMessage && <Alert variant="success">{successMessage}</Alert>} {/* Conditionally render the success message */}
-        {loading ? (
-          <Spinner animation="border" variant="primary" />
-        ) : (
-          <table className="table">
-            <thead className="thead-dark">
-              <tr>
-                <th>Name</th>
-                <th>Domain</th>
-                <th>Description</th>
-                <th>Link</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {websites.map(website => (
-                <tr key={website._id}>
-                  <td>{website.name}</td>
-                  <td>{website.domain}</td>
-                  <td>{website.description}</td>
-                  <td>
-                    <td>
-                      <Link to={`/website/${website.domain}/`}>
-                        <i className='fas fa-link'></i>{' '}
-                        Link
-                      </Link>
-                    </td>
-                  </td>
-                  <td>
-                    <button className="btn btn-primary" onClick={() => handleEdit(website)}>
-                      <i className="fas fa-edit"></i>{' '}
-                      Edit
-                    </button>
-                  </td>
-                  <td>
-                    <button className="btn btn-danger" onClick={() => handleDelete(website._id)}>
-                      <i className="fas fa-trash"></i>{' '}
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+        <br />
+        {isEdit ?
+          <>
+            <button className="btn btn-secondary mb-3" onClick={() => { setIsEdit(false) }}>
+              <i className="fas fa-arrow-left" aria-hidden="true"></i>&nbsp;Back
+            </button>
+            <WebsiteEditor website={currentWebsite} />
+          </>
+          :
+          <>
+            <h1>Website List <span class="text-muted fs-6">({websites.length})</span></h1>
+            <button className="btn btn-success mb-3" onClick={handleCreate}>
+              <i className="fas fa-plus"></i>{' '}
+              Create Website
+            </button>
+            {error && <Alert variant="danger">{error.message}</Alert>}
+            {successMessage && <Alert variant="success">{successMessage}</Alert>} {/* Conditionally render the success message */}
+            {loading ? (
+              <Spinner animation="border" variant="primary" />
+            ) : (
+              <table className="table">
+                <thead className="thead-dark">
+                  <tr>
+                    <th>Name</th>
+                    <th>Domain</th>
+                    <th>Description</th>
+                    <th>Link</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {websites.map(website => (
+                    <tr key={website._id}>
+                      <td>{website.name}</td>
+                      <td>{website.domain}</td>
+                      <td>{website.description}</td>
+                      <td>
+                        <td>
+                          <Link to={`/website/${website.domain}/`} target="_blank">
+                            <i className='fas fa-link'></i>{' '}
+                            Link
+                          </Link>
+                        </td>
+                      </td>
+                      <td>
+                        <button className="btn btn-primary" onClick={() => handleEdit(website)}>
+                          <i className="fas fa-edit"></i>{' '}
+                          Edit
+                        </button>
+                      </td>
+                      <td>
+                        <button className="btn btn-danger" onClick={() => handleDelete(website._id)}>
+                          <i className="fas fa-trash"></i>{' '}
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </>}
       </div>
     </div>
   );

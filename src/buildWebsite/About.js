@@ -6,7 +6,7 @@ import { uploadFileAndGetURL } from '../firebase';
 
 export default function About(props) {
     const [created, setCreated] = useState(false)
-    const [data, setData] = useState({
+    const initData = {
         title: 'About Us',
         paragraph: 'Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet',
         counter1: 4444,
@@ -15,10 +15,11 @@ export default function About(props) {
         p2: 'Projects',
         btn: 'Explore More',
         img: '/img/about.jpg',
-    })
+    }
+    const [data, setData] = useState(initData)
     useEffect(() => {
         if (props.websiteID) {
-            Axios.get(`http://localhost:4000/pagedetail?path=about&website=${props.websiteID}`)
+            Axios.get(`/pagedetail?path=about&website=${props.websiteID}`)
                 .then(res => {
                     if (res.data) {
                         setData(res.data)
@@ -103,46 +104,47 @@ export default function About(props) {
             {props.edit && (<>
                 <hr />
                 <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="title">Title</label> <input type="text" class="form-control" id="title" data-id="title" value={data.title} onChange={handleChange} /> </div>
-                <div class="form-group">
-                <label for="paragraph">Paragraph</label>
-                <input type="text" class="form-control" id="paragraph" data-id="paragraph" value={data.paragraph} onChange={handleChange} />
-                </div>
+                    <div class="form-group">
+                        <label for="paragraph">Paragraph</label>
+                        <input type="text" class="form-control" id="paragraph" data-id="paragraph" value={data.paragraph} onChange={handleChange} />
+                    </div>
 
-                <div class="form-group">
-                <label for="counter1">Counter 1</label>
-                <input type="text" class="form-control" id="counter1" data-id="counter1" value={data.counter1} onChange={handleChange} />
-                </div>
+                    <div class="form-group">
+                        <label for="counter1">Counter 1</label>
+                        <input type="text" class="form-control" id="counter1" data-id="counter1" value={data.counter1} onChange={handleChange} />
+                    </div>
 
-                <div class="form-group">
-                <label for="p1">P1</label>
-                <input type="text" class="form-control" id="p1" data-id="p1" value={data.p1} onChange={handleChange} />
-                </div>
+                    <div class="form-group">
+                        <label for="p1">P1</label>
+                        <input type="text" class="form-control" id="p1" data-id="p1" value={data.p1} onChange={handleChange} />
+                    </div>
                 </div> <div class="col-md-6"> <div class="form-group"> <label for="counter2">Counter 2</label> <input type="text" class="form-control" id="counter2" data-id="counter2" value={data.counter2} onChange={handleChange} /> </div>
-                <div class="form-group">
-                <label for="p2">P2</label>
-                <input type="text" class="form-control" id="p2" data-id="p2" value={data.p2} onChange={handleChange} />
-                </div>
+                        <div class="form-group">
+                            <label for="p2">P2</label>
+                            <input type="text" class="form-control" id="p2" data-id="p2" value={data.p2} onChange={handleChange} />
+                        </div>
 
-                <div class="form-group">
-                <label for="btn">Button</label>
-                <input type="text" class="form-control" id="btn" data-id="btn" value={data.btn} onChange={handleChange} />
-                </div>
+                        <div class="form-group">
+                            <label for="btn">Button</label>
+                            <input type="text" class="form-control" id="btn" data-id="btn" value={data.btn} onChange={handleChange} />
+                        </div>
 
-                <div class="form-group">
-                <label for="img">Image</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="img" data-id="img" value={data.img} onChange={handleChange} />
-                    <input type="file" class="form-control" id="profileImageInput" data-id="img" accept="image/*" onChange={handleImageChange} />
+                        <div class="form-group">
+                            <label for="img">Image</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="img" data-id="img" value={data.img} onChange={handleChange} />
+                                <input type="file" class="form-control" id="profileImageInput" data-id="img" accept="image/*" onChange={handleImageChange} />
+                            </div>
+                        </div>
+                    </div> </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
                 </div>
-                </div>
-                </div> </div> 
-                <div class="row"> 
-                    <div class="col-md-12"> 
-                         
-                    </div> 
-                </div>
-                <br/>
-                <button type="button" class="btn btn-primary" onClick={handleClick}>Save</button>{' '}
+                <br />
+                <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
+                {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('about'); setData(initData) }}>Delete</button>)}&nbsp;
             </>)}
         </>
     )
