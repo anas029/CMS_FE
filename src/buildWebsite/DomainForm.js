@@ -8,37 +8,44 @@ export default function DomainForm(props) {
     const [website, setWebsite] = useState({ ...props.website })
     const [availStatus, setAvailStatus] = useState('')
     const [isAvailable, setIsAvailable] = useState(false)
+
+    useEffect(() => {
+        if (props.edit && website.domain === props.website.domain) {
+            setIsAvailable(true)
+        }
+    }, [])
+
     const handleChange = (event) => {
-        const key = event.target.name
-        const value = event.target.value
+        const { name, value } = event.target
         const newWebsite = { ...website }
-        console.log(value);
-        if (key === 'domain' && /^[A-Za-z]*$/.test(value)) {
+        if (name === 'domain' && /^[A-Za-z]*$/.test(value)) {
             setIsAvailable(false)
             setAvailStatus('')
-            newWebsite[key] = value
-        } else if (key !== 'domain') {
-            newWebsite[key] = value
+            newWebsite[name] = value
+        } else if (name !== 'domain') {
+            newWebsite[name] = value
         }
-        // console.log(/[a-zA-Z]/g.test(value.at(-1)))
         setWebsite(newWebsite)
-        console.log(website);
     }
     const checkAvailable = () => {
-        Axios.get(`website/domain?domain=${website.domain}`)
-            .then(response => {
-                if (response.data) {
-                    console.log('Unavailable')
-                    setAvailStatus('Unavailable')
-                    setIsAvailable(false)
-                }
-                else {
-                    setAvailStatus('Available')
-                    console.log('Available')
-                    setIsAvailable(true)
-                }
-            })
-            .catch(error => { console.log(error.message) })
+        if (props.edit && website.domain === props.website.domain) {
+            setIsAvailable(true)
+        } else {
+            Axios.get(`website/domain?domain=${website.domain}`)
+                .then(response => {
+                    if (response.data) {
+                        console.log('Unavailable')
+                        setAvailStatus('Unavailable')
+                        setIsAvailable(false)
+                    }
+                    else {
+                        setAvailStatus('Available')
+                        console.log('Available')
+                        setIsAvailable(true)
+                    }
+                })
+                .catch(error => { console.log(error.message) })
+        }
     }
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -49,26 +56,26 @@ export default function DomainForm(props) {
         }
     }
 
-return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="name">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text" name="name" required value={website.name ? website.name : ''} onChange={handleChange} placeholder="Please enter a name for the website" />
-      </Form.Group>
+    return (
+        <Form onSubmit={handleSubmit}>
+            <Form.Group style={{ padding: '10px 0' }} controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" name="name" required value={website.name ? website.name : ''} onChange={handleChange} placeholder="Please enter a name for the website" />
+            </Form.Group>
 
-      <Form.Group controlId="description">
-        <Form.Label>Description</Form.Label>
-        <Form.Control as="textarea" name="description" required value={website.description ? website.description : ''} onChange={handleChange} placeholder="Description for the website" rows={10} />
-      </Form.Group>
+            <Form.Group style={{ padding: '10px 0' }} controlId="description">
+                <Form.Label>Description</Form.Label>
+                <Form.Control as="textarea" name="description" required value={website.description ? website.description : ''} onChange={handleChange} placeholder="Description for the website" rows={10} />
+            </Form.Group>
 
-      <Form.Group controlId="domain">
-        <Form.Label>Domain</Form.Label>
-        <Form.Control type="text" name="domain" required value={website.domain ? website.domain : ''} onChange={handleChange} placeholder="At least 6 letters" />
-        <Button type="button" onClick={checkAvailable} variant={isAvailable ? "success" : "danger"} disabled={(website.domain && website.domain.length) > 5 ? false : true}>Check Availability</Button>
-        <Form.Text>{availStatus}</Form.Text>
-      </Form.Group>
+            <Form.Group style={{ padding: '10px 0' }} controlId="domain">
+                <Form.Label>Domain</Form.Label> &nbsp;
+                <Form.Control type="text" name="domain" required value={website.domain ? website.domain : ''} onChange={handleChange} placeholder="At least 6 letters" style={{ width: '50%', display: 'inline-block' }} />&nbsp;
+                <Button type="button" onClick={checkAvailable} variant={isAvailable ? "success" : "danger"} disabled={(website.domain && website.domain.length) > 5 ? false : true}>Check Availability</Button>&nbsp;
+                <Form.Text style={{ display: 'block', fontWeight: '500', fontSize: '30px' }}>{availStatus}</Form.Text>
+            </Form.Group>
 
-      <Button variant="primary" type="submit" disabled={isAvailable ? false : true}>Create</Button>
-    </Form>
-  );
+            <Button style={{ margin: '10px 0' }} variant="primary" type="submit" disabled={isAvailable ? false : true}>{props.edit ? 'Update' : 'Create'}</Button>
+        </Form>
+    );
 }

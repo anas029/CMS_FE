@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadFileAndGetURL, auth } from '../firebase';
 // import WebSiteList from '../website/WebSiteList';
-import { 
-  updatePassword, 
-  reauthenticateWithCredential, 
+import {
+  updatePassword,
+  reauthenticateWithCredential,
   EmailAuthProvider,
 } from 'firebase/auth';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import Axios from "axios"
 import UserWebsites from './UserWebsites';
+import ProfileCard from './ProfileCard';
+import WebsiteEditor from '../buildWebsite/WebsiteEditor';
 
 function Profile({ currentUser }) {
   const navigate = useNavigate();
@@ -23,12 +25,14 @@ function Profile({ currentUser }) {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false)
+  const [currentWebsite, setCurrentWebsite] = useState({})
 
-  useEffect( () => {
+  useEffect(() => {
     if (!currentUser) {
       //NEED FIXING THIS
       navigate('/');
-    }else{
+    } else {
       setFirstName(currentUser.firstName);
       setLastName(currentUser.lastName);
     }
@@ -42,12 +46,12 @@ function Profile({ currentUser }) {
     setIsLoading(true);
     const file = event.target.files[0];
     const avatarURL = await uploadFileAndGetURL(file, 'avatar');
-    if(avatarURL){
-        const data = {
-          id : currentUser.id,
-          avatarURL
-        };
-        Axios.put(`/auth/user/update`, data)
+    if (avatarURL) {
+      const data = {
+        id: currentUser.id,
+        avatarURL
+      };
+      Axios.put(`/auth/user/update`, data)
         .then((response) => {
           console.log(response);
           auth.currentUser.reload();
@@ -62,7 +66,7 @@ function Profile({ currentUser }) {
   const handleOpenNameModal = () => {
     setShowNameModal(true);
   };
-  
+
   const handleCloseNameModal = () => {
     setShowNameModal(false);
     setError(false);
@@ -131,50 +135,19 @@ function Profile({ currentUser }) {
     setIsLoading(false);
   };
 
+  const handleEdit = (website) => {
+    setIsEdit(true)
+    setCurrentWebsite(website)
+  }
   return (
     <div className="container mt-5">
-      <div className="card shadow-sm w-100">
-        <div className="card-body">
-          <div className="row align-items-center">
-            <div className="col-auto">
+      <ProfileCard currentUser={currentUser} handleImageChange={handleImageChange} handleOpenModal={handleOpenModal} handleOpenNameModal={handleOpenNameModal} />
 
-            <div className="position-relative d-inline-block">
-              <img referrerPolicy='no-referrer' src={currentUser.avatarURL || "/guest.jpeg"} alt="Profile" className="rounded-circle" style={{ width: 100, height: 100, objectFit:'cover' }} />
-              {isLoading && (
-                <div className="position-absolute top-50 start-50 translate-middle bg-white p-2 rounded-circle">
-                  <Spinner animation="border" size="lg" />
-                </div>
-              )}
-              <div className="position-absolute bottom-0 end-0 mb-1">
-                <label htmlFor="profileImageInput" className="btn btn-primary rounded-circle position-relative" style={{ width: "2rem", height: "2rem" }}>
-                  <i className="fas fa-arrow-up-from-bracket position-absolute top-50 start-50 translate-middle" style={{ fontSize: "1rem" }}></i>
-                </label>
-                <input type="file" id="profileImageInput" accept="image/*" onChange={handleImageChange} className="visually-hidden" hidden />
-              </div>
-            </div>
-            </div>
-            <div className="col">
-              <h2 className="mb-0">{currentUser.firstName} {currentUser.lastName}</h2>
-              <p className="text-muted mb-0">{currentUser.type}</p>
-            </div>
-            <div className="col-auto mt-2">
-            { auth.currentUser.providerData[0].providerId === 'password' ? (
-              <>
-              <Button variant="primary" onClick={handleOpenModal}>Change Password</Button>
-              {' '}
-              </>
-              
-              
-            ) : null }
-              <Button variant="primary" onClick={handleOpenNameModal}>Change Name</Button>          
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className='mt-5'>
-        <UserWebsites user={currentUser}></UserWebsites>
-      </div>
+      {isEdit ?
+        <WebsiteEditor website={currentWebsite} />
+        :
+        <UserWebsites handleEdit={handleEdit} user={currentUser} isLoading={isLoading}></UserWebsites>}
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
@@ -198,7 +171,7 @@ function Profile({ currentUser }) {
               <Form.Control type="password" placeholder="Confirm new password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required />
             </Form.Group>
             <Button variant="primary" type="submit">
-              {isLoading ? <Spinner animation="border" size="sm" /> : 'Submit'} 
+              {isLoading ? <Spinner animation="border" size="sm" /> : 'Submit'}
             </Button>{' '}
             <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>
           </Form>
@@ -229,9 +202,7 @@ function Profile({ currentUser }) {
           </Form>
         </Modal.Body>
       </Modal>
-      {/* {<WebSiteList />} */}
     </div>
-    // {<WebSiteList />}
   );
 }
 

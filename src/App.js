@@ -66,7 +66,7 @@ function App(props) {
       <div className="container-fluid" style={{ paddingTop: "50px" }}>
         <div className="container py-4">
           <Routes>
-            <Route exact path="/" element={ <Home /> } />
+            <Route exact path="/" element={<Home />} />
             <Route path="/login" element={<SocialLogin />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />

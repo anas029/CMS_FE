@@ -4,7 +4,7 @@ import { uploadFileAndGetURL } from '../firebase';
 
 
 export default function Home(props) {
-    const [data, setData] = useState({
+    const initData = {
         imgSrc: '/img/carousel-3.jpg',
         heading5: 'WELCOME TO WOODY',
         heading1: 'Best Carpenter & Craftsman Services',
@@ -13,7 +13,8 @@ export default function Home(props) {
         link1Text: 'Read More',
         link2: '!#',
         link2Text: 'Free Quota',
-    })
+    }
+    const [data, setData] = useState(initData)
     const [created, setCreated] = useState(false)
 
     useEffect(() => {
@@ -78,10 +79,21 @@ export default function Home(props) {
             {
                 props.edit && (<>
                     <hr />
+
                     <div class="row"> <div class="col-sm-6"> <div class="form-group"> <label for="imgSrc">imgSrc</label> <div class="input-group"> <input type="text" class="form-control" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} /> <input type="file" class="form-control" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} /> </div> </div>
                     <div class="form-group">
                     <label for="heading5">heading5</label>
                     <input type="text" class="form-control" id="heading5" data-id="heading5" value={data.heading5} onChange={handleChange} />
+/**/
+                    <div>
+                        <label htmlFor="imgSrc">imgSrc</label>
+                        <input type="text" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
+                        <input type="file" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="heading5">heading5</label>
+                        <input type="text" id="heading5" data-id="heading5" value={data.heading5} onChange={handleChange} />
+
                     </div>
 
                     <div class="form-group">
@@ -109,9 +121,14 @@ export default function Home(props) {
                     <input type="text" class="form-control" id="link2Text" data-id="link2Text" value={data.link2Text} onChange={handleChange} />
                     </div>
 
+
                     
                     </div> </div>
                     <button type="button" class="btn btn-primary" onClick={handleClick}>Save</button>{' '}
+/**/
+                    <button onClick={handleClick}>Save</button>
+                    <button onClick={() => { props.handleDelete('index'); setData(initData) }}>delete</button>
+
                 </>)
             }
         </>
