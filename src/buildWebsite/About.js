@@ -55,7 +55,7 @@ export default function About(props) {
     }
 
     return (
-        <div>
+        <>
             {(created || props.edit) && (<div className="container-fluid bg-light overflow-hidden my-5 px-lg-0">
                 <div className="container about px-lg-0">
                     <div className="row g-0 mx-lg-0">
@@ -102,46 +102,48 @@ export default function About(props) {
             </div>)}
             {props.edit && (<>
                 <hr />
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id="title" data-id="title" value={data.title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="paragraph">Paragraph</label>
-                    <input type="text" id="paragraph" data-id="paragraph" value={data.paragraph} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="counter1">Counter 1</label>
-                    <input type="text" id="counter1" data-id="counter1" value={data.counter1} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="p1">P1</label>
-                    <input type="text" id="p1" data-id="p1" value={data.p1} onChange={handleChange} />
+                <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="title">Title</label> <input type="text" class="form-control" id="title" data-id="title" value={data.title} onChange={handleChange} /> </div>
+                <div class="form-group">
+                <label for="paragraph">Paragraph</label>
+                <input type="text" class="form-control" id="paragraph" data-id="paragraph" value={data.paragraph} onChange={handleChange} />
                 </div>
 
-                <div>
-                    <label htmlFor="counter2">Counter 2</label>
-                    <input type="text" id="counter2" data-id="counter2" value={data.counter2} onChange={handleChange} />
+                <div class="form-group">
+                <label for="counter1">Counter 1</label>
+                <input type="text" class="form-control" id="counter1" data-id="counter1" value={data.counter1} onChange={handleChange} />
                 </div>
 
-                <div>
-                    <label htmlFor="p2">P2</label>
-                    <input type="text" id="p2" data-id="p2" value={data.p2} onChange={handleChange} />
+                <div class="form-group">
+                <label for="p1">P1</label>
+                <input type="text" class="form-control" id="p1" data-id="p1" value={data.p1} onChange={handleChange} />
+                </div>
+                </div> <div class="col-md-6"> <div class="form-group"> <label for="counter2">Counter 2</label> <input type="text" class="form-control" id="counter2" data-id="counter2" value={data.counter2} onChange={handleChange} /> </div>
+                <div class="form-group">
+                <label for="p2">P2</label>
+                <input type="text" class="form-control" id="p2" data-id="p2" value={data.p2} onChange={handleChange} />
                 </div>
 
-                <div>
-                    <label htmlFor="btn">Button</label>
-                    <input type="text" id="btn" data-id="btn" value={data.btn} onChange={handleChange} />
+                <div class="form-group">
+                <label for="btn">Button</label>
+                <input type="text" class="form-control" id="btn" data-id="btn" value={data.btn} onChange={handleChange} />
                 </div>
 
-                <div>
-                    <label htmlFor="img">Image</label>
-                    <input type="text" id="img" data-id="img" value={data.img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="img" accept="image/*" onChange={handleImageChange} />
-
+                <div class="form-group">
+                <label for="img">Image</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="img" data-id="img" value={data.img} onChange={handleChange} />
+                    <input type="file" class="form-control" id="profileImageInput" data-id="img" accept="image/*" onChange={handleImageChange} />
                 </div>
-                <button onClick={handleClick}>Save</button>
+                </div>
+                </div> </div> 
+                <div class="row"> 
+                    <div class="col-md-12"> 
+                         
+                    </div> 
+                </div>
+                <br/>
+                <button type="button" class="btn btn-primary" onClick={handleClick}>Save</button>{' '}
             </>)}
-        </div>
+        </>
     )
 }
