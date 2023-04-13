@@ -63,23 +63,18 @@ function App(props) {
   return (
     <Router>
       <Nav currentUser={currentUser} signOut={signOut} isAdmin={isAdmin} />
-      <div className="container-fluid" style={{ paddingTop: "50px" }}>
-        <div className="container py-4">
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/login" element={<SocialLogin />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/profile" element={<Profile currentUser={currentUser} />} />
-            <Route path="/website/:websiteDomain/:path" element={<Website />} />
-            <Route path="/website/:websiteDomain/*" element={<Website />} />
-            <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
-            <Route path="/users" element={<UserList />} />
-            <Route path="/websites" element={<WebsiteList />} />
-          </Routes>
-        </div>
-      </div>
-
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/login" element={<SocialLogin />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/profile" element={<Profile currentUser={currentUser} />} />
+        <Route path="/website/:websiteDomain/:path" element={<Website />} />
+        <Route path="/website/:websiteDomain/*" element={<Website />} />
+        <Route path="/create" element={<WebsiteCreate currentUser={currentUser} />} />
+        <Route path="/users" element={<UserList />} />
+        <Route path="/websites" element={<WebsiteList />} />
+      </Routes>
     </Router>
   );
 }

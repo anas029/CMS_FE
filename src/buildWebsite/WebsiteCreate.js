@@ -32,15 +32,17 @@ export default function WebsiteCreate(props) {
     }
 
     return (
-        <div className="mt-10">
-            <h1>Create Website {website?.id? `(${website.domain})`:null}</h1>
-            {website.id ?
-                <>
-                    <PageBuilder websiteID={website.id} websiteDomain={website.domain} />
-                </>
-                :
-                <DomainForm website={website} handleDomain={handleDomain} />
-            }
+        <div className="container-fluid" style={{ paddingTop: "50px" }}>
+            <div className="container py-4 mt-10">
+                <h1>Create Website {website?.id ? `(${website.domain})` : null}</h1>
+                {website.id ?
+                    <>
+                        <PageBuilder websiteID={website.id} websiteDomain={website.domain} />
+                    </>
+                    :
+                    <DomainForm website={website} handleDomain={handleDomain} />
+                }
+            </div>
         </div>
     )
 }

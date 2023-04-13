@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import {auth} from '../firebase';
+import { auth } from '../firebase';
 import {
-    sendPasswordResetEmail
+  sendPasswordResetEmail
 } from 'firebase/auth';
 
 const ForgotPassword = () => {
@@ -31,17 +31,18 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="mb-4">Forgot Password</h1>
-      {message && (
-        <div className={`alert ${error ? 'alert-danger' : 'alert-success'}`}>{message}</div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group mb-3">
-          <label className="mb-2">Email Address</label>
-          <input type="email" className="form-control" value={email} onChange={handleEmailChange} />
-        </div>
-        <button type="submit" className="btn btn-primary">
+    <div className="container-fluid" style={{ paddingTop: "50px" }}>
+      <div className="container py-4">
+        <h1 className="mb-4">Forgot Password</h1>
+        {message && (
+          <div className={`alert ${error ? 'alert-danger' : 'alert-success'}`}>{message}</div>
+        )}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group mb-3">
+            <label className="mb-2">Email Address</label>
+            <input type="email" className="form-control" value={email} onChange={handleEmailChange} />
+          </div>
+          <button type="submit" className="btn btn-primary">
             {isLoading ? ( // Conditionally render the loading indicator
               <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -49,8 +50,9 @@ const ForgotPassword = () => {
             ) : (
               'Send Password Reset Email'
             )}
-        </button>
-      </form>
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

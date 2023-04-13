@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import {auth} from '../firebase';
+import { auth } from '../firebase';
 import axios from 'axios';
 
 
@@ -115,59 +115,62 @@ const SignUp = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="mb-4">Sign Up</h1>
-      {firebaseError && (
-        <div className="alert alert-danger">
-          {firebaseError}
-        </div>
-      )}
-      <div className="mb-3">
-        <label htmlFor="firstName" className="form-label">
-          First Name
-        </label>
-        <input type="text" className={`form-control ${firstNameError ? 'is-invalid' : ''}`} id="firstName" value={firstName} onChange={handleFirstNameChange} />
-        {firstNameError && <div className="invalid-feedback">{firstNameError}</div>}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="lastName" className="form-label">
-          Last Name
-        </label>
-        <input type="text" className={`form-control ${lastNameError ? 'is-invalid' : ''}`} id="lastName" value={lastName} onChange={handleLastNameChange} />
-        {lastNameError && <div className="invalid-feedback">{lastNameError}</div>}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">
-          Email Address
-        </label>
-        <input type="email" className={`form-control ${emailError ? 'is-invalid' : ''}`} id="email" value={email} onChange={handleEmailChange} />
-        {emailError && <div className="invalid-feedback">{emailError}</div>}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">
-          Password
-        </label>
-        <input type="password" className={`form-control ${passwordError ? 'is-invalid' : ''}`} id="password" value={password} onChange={handlePasswordChange} />
-        {passwordError && <div className="invalid-feedback">{passwordError}</div>}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="confirm-password" className="form-label">
-          Confirm Password
-        </label>
-        <input type="password" className={`form-control ${passwordError ? 'is invalid' : ''}`} id="confirm-password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
-        {passwordError && <div className="invalid-feedback">{passwordError}</div>}
-      </div>
-      <button className="btn btn-primary" onClick={handleSignUp}>
-        {isLoading ? ( // Conditionally render the loading indicator
-          <div className="spinner-border text-light" role="status">
-            <span className="visually-hidden">Loading...</span>
+    <div className="container-fluid" style={{ paddingTop: "50px" }}>
+      <div className="container py-4">
+
+        <h1 className="mb-4">Sign Up</h1>
+        {firebaseError && (
+          <div className="alert alert-danger">
+            {firebaseError}
           </div>
-        ) : (
-          'Sign up'
         )}
-      </button>
-      <div className="mt-3">
-        Already have an account? <Link to="/login">Sign in</Link>
+        <div className="mb-3">
+          <label htmlFor="firstName" className="form-label">
+            First Name
+          </label>
+          <input type="text" className={`form-control ${firstNameError ? 'is-invalid' : ''}`} id="firstName" value={firstName} onChange={handleFirstNameChange} />
+          {firstNameError && <div className="invalid-feedback">{firstNameError}</div>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="lastName" className="form-label">
+            Last Name
+          </label>
+          <input type="text" className={`form-control ${lastNameError ? 'is-invalid' : ''}`} id="lastName" value={lastName} onChange={handleLastNameChange} />
+          {lastNameError && <div className="invalid-feedback">{lastNameError}</div>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email Address
+          </label>
+          <input type="email" className={`form-control ${emailError ? 'is-invalid' : ''}`} id="email" value={email} onChange={handleEmailChange} />
+          {emailError && <div className="invalid-feedback">{emailError}</div>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input type="password" className={`form-control ${passwordError ? 'is-invalid' : ''}`} id="password" value={password} onChange={handlePasswordChange} />
+          {passwordError && <div className="invalid-feedback">{passwordError}</div>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="confirm-password" className="form-label">
+            Confirm Password
+          </label>
+          <input type="password" className={`form-control ${passwordError ? 'is invalid' : ''}`} id="confirm-password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
+          {passwordError && <div className="invalid-feedback">{passwordError}</div>}
+        </div>
+        <button className="btn btn-primary" onClick={handleSignUp}>
+          {isLoading ? ( // Conditionally render the loading indicator
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            'Sign up'
+          )}
+        </button>
+        <div className="mt-3">
+          Already have an account? <Link to="/login">Sign in</Link>
+        </div>
       </div>
     </div>
   );

@@ -69,55 +69,57 @@ function UserList() {
   };
 
   return (
-    <div className="container">
-      {showEditForm && <EditUserForm user={selectedUser} onClose={handleEditFormClose} refreshUsers={refreshUsers} />}
-      {showCreateForm && <CreateUserForm onClose={handleCreateFormClose} refreshUsers={refreshUsers} />}
-      <h1>User List <span className="text-muted fs-6">({users.length})</span></h1>
-      <button className="btn btn-success mb-3" onClick={handleCreate}>
-        <i className="fas fa-plus"></i>{' '}
-        Create User
-      </button>{' '}
-      {loading && <Spinner animation="border" variant="primary" />}
-      {error && <Alert variant="danger">{error.message}</Alert>}
-      {successMessage && <Alert variant="success">{successMessage}</Alert>} {/* Conditionally render the success message */}
-      <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Provider</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Type</th>
-            <th>Email</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user._id}>
-              <td>{user.id}</td>
-              <td>{user.firebaseUser.providerData[0].providerId}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.type}</td>
-              <td>{user.firebaseUser.email}</td>
-              <td>
-                <button className="btn btn-primary" onClick={() => handleEdit(user)}>
-                  <i className="fas fa-edit"></i>{' '}
-                  Edit
-                </button>
-              </td>
-              <td>
-                <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>
-                  <i className="fas fa-trash-alt"></i>{' '}
-                  Delete
-                </button>
-              </td>
+    <div className="container-fluid" style={{ paddingTop: "50px" }}>
+      <div className="container py-4">
+        {showEditForm && <EditUserForm user={selectedUser} onClose={handleEditFormClose} refreshUsers={refreshUsers} />}
+        {showCreateForm && <CreateUserForm onClose={handleCreateFormClose} refreshUsers={refreshUsers} />}
+        <h1>User List <span className="text-muted fs-6">({users.length})</span></h1>
+        <button className="btn btn-success mb-3" onClick={handleCreate}>
+          <i className="fas fa-plus"></i>{' '}
+          Create User
+        </button>{' '}
+        {loading && <Spinner animation="border" variant="primary" />}
+        {error && <Alert variant="danger">{error.message}</Alert>}
+        {successMessage && <Alert variant="success">{successMessage}</Alert>} {/* Conditionally render the success message */}
+        <table className="table">
+          <thead className="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Provider</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Type</th>
+              <th>Email</th>
+              <th></th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user._id}>
+                <td>{user.id}</td>
+                <td>{user.firebaseUser.providerData[0].providerId}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.type}</td>
+                <td>{user.firebaseUser.email}</td>
+                <td>
+                  <button className="btn btn-primary" onClick={() => handleEdit(user)}>
+                    <i className="fas fa-edit"></i>{' '}
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-danger" onClick={() => handleDelete(user._id)}>
+                    <i className="fas fa-trash-alt"></i>{' '}
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

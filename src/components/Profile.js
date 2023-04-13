@@ -140,68 +140,76 @@ function Profile({ currentUser }) {
     setCurrentWebsite(website)
   }
   return (
-    <div className="container mt-5">
-      <ProfileCard currentUser={currentUser} handleImageChange={handleImageChange} handleOpenModal={handleOpenModal} handleOpenNameModal={handleOpenNameModal} />
+    <div className="container-fluid" style={{ paddingTop: "50px" }}>
+      <div className="container py-4  mt-5">
+        <ProfileCard currentUser={currentUser} handleImageChange={handleImageChange} handleOpenModal={handleOpenModal} handleOpenNameModal={handleOpenNameModal} />
 
+        <br />
 
-      {isEdit ?
-        <WebsiteEditor website={currentWebsite} />
-        :
-        <UserWebsites handleEdit={handleEdit} user={currentUser} isLoading={isLoading}></UserWebsites>}
+        {isEdit ?
+          <>
+            <button className="btn btn-secondary mb-3" onClick={() => { setIsEdit(false) }}>
+              <i className="fas fa-arrow-left" aria-hidden="true"></i>&nbsp;Back
+            </button>
+            <WebsiteEditor website={currentWebsite} />
+          </>
+          :
+          <UserWebsites handleEdit={handleEdit} user={currentUser} isLoading={isLoading}></UserWebsites>}
 
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Change Password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {message && (
-            <div className={`alert ${error ? 'alert-danger' : 'alert-success'}`}>{message}</div>
-          )}
-          <Form onSubmit={handleSubmitPasswordChange}>
-            <Form.Group controlId="currentPassword" className="mb-3">
-              <Form.Label>Current Password</Form.Label>
-              <Form.Control type="password" placeholder="Enter current password" value={currentPassword} onChange={(event) => setCurrentPassword(event.target.value)} required />
-            </Form.Group>
-            <Form.Group controlId="newPassword" className="mb-3">
-              <Form.Label>New Password</Form.Label>
-              <Form.Control type="password" placeholder="Enter new password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} required />
-            </Form.Group>
-            <Form.Group controlId="confirmPassword" className="mb-3">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" placeholder="Confirm new password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              {isLoading ? <Spinner animation="border" size="sm" /> : 'Submit'}
-            </Button>{' '}
-            <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Change Password</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {message && (
+              <div className={`alert ${error ? 'alert-danger' : 'alert-success'}`}>{message}</div>
+            )}
+            <Form onSubmit={handleSubmitPasswordChange}>
+              <Form.Group controlId="currentPassword" className="mb-3">
+                <Form.Label>Current Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter current password" value={currentPassword} onChange={(event) => setCurrentPassword(event.target.value)} required />
+              </Form.Group>
+              <Form.Group controlId="newPassword" className="mb-3">
+                <Form.Label>New Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter new password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} required />
+              </Form.Group>
+              <Form.Group controlId="confirmPassword" className="mb-3">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm new password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                {isLoading ? <Spinner animation="border" size="sm" /> : 'Submit'}
+              </Button>{' '}
+              <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
 
-      <Modal show={showNameModal} onHide={handleCloseNameModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Change Name</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {message && (
-            <div className={`alert ${error ? 'alert-danger' : 'alert-success'}`}>{message}</div>
-          )}
-          <Form onSubmit={handleSubmitNameChange}>
-            <Form.Group controlId="firstName" className="mb-3">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter first name" value={firstName} onChange={(event) => setFirstName(event.target.value)} required />
-            </Form.Group>
-            <Form.Group controlId="lastName" className="mb-3">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter last name" value={lastName} onChange={(event) => setLastName(event.target.value)} required />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              {isLoading ? <Spinner animation="border" size="sm" /> : 'Submit'}
-            </Button>{' '}
-            <Button variant="secondary" onClick={handleCloseNameModal}>Cancel</Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+        <Modal show={showNameModal} onHide={handleCloseNameModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Change Name</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {message && (
+              <div className={`alert ${error ? 'alert-danger' : 'alert-success'}`}>{message}</div>
+            )}
+            <Form onSubmit={handleSubmitNameChange}>
+              <Form.Group controlId="firstName" className="mb-3">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter first name" value={firstName} onChange={(event) => setFirstName(event.target.value)} required />
+              </Form.Group>
+              <Form.Group controlId="lastName" className="mb-3">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter last name" value={lastName} onChange={(event) => setLastName(event.target.value)} required />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                {isLoading ? <Spinner animation="border" size="sm" /> : 'Submit'}
+              </Button>{' '}
+              <Button variant="secondary" onClick={handleCloseNameModal}>Cancel</Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      </div>
     </div>
   );
 }

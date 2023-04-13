@@ -99,53 +99,55 @@ const SocialLogin = () => {
   };
 
   return (
-    <div className="container">
-      <div>
-        <h1 className="mb-4">Sign In</h1>
-        {firebaseError && (
-          <div className="alert alert-danger">
-            {firebaseError}
+    <div className="container-fluid" style={{ paddingTop: "50px" }}>
+      <div className="container py-4">
+        <div>
+          <h1 className="mb-4">Sign In</h1>
+          {firebaseError && (
+            <div className="alert alert-danger">
+              {firebaseError}
+            </div>
+          )}
+          <form>
+            <div className="form-group mb-3">
+              <label className="mb-2">Email Address</label>
+              <input type="email" className="form-control" value={email} onChange={handleEmailChange} />
+            </div>
+            <div className="form-group mb-3">
+              <label className="mb-2">Password</label>
+              <input type="password" className="form-control" value={password} onChange={handlePasswordChange} />
+            </div>
+            <button type="submit" className="btn btn-primary" onClick={signInWithEmail}>
+              {isLoading ? ( // Conditionally render the loading indicator
+                <div className="spinner-border text-light" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                'Sign in'
+              )}
+            </button>
+            <div className="text-left mt-3">
+              <p> <Link to="/forgotpassword">Forgot your password?</Link></p>
+              <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            </div>
+          </form>
+          <div className="d-flex justify-content-center align-items-center my-4">
+            <hr className="w-100 mx-3" />
+            <span className="px-2">or</span>
+            <hr className="w-100 mx-3" />
           </div>
-        )}
-        <form>
-          <div className="form-group mb-3">
-            <label className="mb-2">Email Address</label>
-            <input type="email" className="form-control" value={email} onChange={handleEmailChange} />
-          </div>
-          <div className="form-group mb-3">
-            <label className="mb-2">Password</label>
-            <input type="password" className="form-control" value={password} onChange={handlePasswordChange} />
-          </div>
-          <button type="submit" className="btn btn-primary" onClick={signInWithEmail}>
-            {isLoading ? ( // Conditionally render the loading indicator
-              <div className="spinner-border text-light" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            ) : (
-              'Sign in'
-            )}
+          <button className="btn btn-outline-danger btn-lg w-50 mb-3" onClick={signInWithGoogle}>
+            <i className="fab fa-google fa-lg mr-2"></i> Sign in with Google
           </button>
-          <div className="text-left mt-3">
-            <p> <Link to="/forgotpassword">Forgot your password?</Link></p>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
-          </div>
-        </form>
-        <div className="d-flex justify-content-center align-items-center my-4">
-          <hr className="w-100 mx-3" />
-          <span className="px-2">or</span>
-          <hr className="w-100 mx-3" />
+
+          <button className="btn btn-outline-info btn-lg w-50 mb-3" onClick={signInWithTwitter}>
+            <i className="fab fa-twitter fa-lg mr-2"></i> Sign in with Twitter
+          </button>
+
+          <button className="btn btn-outline-secondary btn-lg w-50 mb-3" onClick={signInWithGitHub}>
+            <i className="fab fa-github fa-lg mr-2"></i> Sign in with GitHub
+          </button>
         </div>
-        <button className="btn btn-outline-danger btn-lg w-50 mb-3" onClick={signInWithGoogle}>
-          <i className="fab fa-google fa-lg mr-2"></i> Sign in with Google
-        </button>
-
-        <button className="btn btn-outline-info btn-lg w-50 mb-3" onClick={signInWithTwitter}>
-          <i className="fab fa-twitter fa-lg mr-2"></i> Sign in with Twitter
-        </button>
-
-        <button className="btn btn-outline-secondary btn-lg w-50 mb-3" onClick={signInWithGitHub}>
-          <i className="fab fa-github fa-lg mr-2"></i> Sign in with GitHub
-        </button>
       </div>
     </div>
   );
