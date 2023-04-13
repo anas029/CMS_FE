@@ -58,7 +58,7 @@ export default function Projects(props) {
     }
 
     return (
-        <div>
+        <>
             {(created || props.edit) && (<div className="container-xxl py-5">
                 <div className="container">
                     <div className="section-title text-center">
@@ -104,54 +104,68 @@ export default function Projects(props) {
             )}
             {props.edit && (<>
                 <hr />
-                <div>
-                    <label htmlFor="heading">Heading</label>
-                    <input type="text" id="heading" data-id="heading" value={data.heading} onChange={handleChange} />
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="heading">Heading</label>
+                            <input type="text" className="form-control" id="heading" data-id="heading" value={data.heading} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card1title">Card 1 Title</label>
+                            <input type="text" className="form-control" id="card1title" data-id="card1title" value={data.card1title} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card1description">Card 1 Description</label>
+                            <textarea className="form-control" id="card1description" data-id="card1description" value={data.card1description} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card1img">Card 1 Image URL</label>
+                            <div className='input-group'>
+                            <input type="text" className="form-control" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
+                            <input type="file" className="form-control" id="profileImageInput" data-id="card1img" accept="image/*" onChange={handleImageChange} />
+                            </div>
+                        </div>
+                        </div>
+                        <div className="col-md-6">
+                        <div className="form-group">
+                            <label htmlFor="card2title">Card 2 Title</label>
+                            <input type="text" className="form-control" id="card2title" data-id="card2title" value={data.card2title} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card2description">Card 2 Description</label>
+                            <textarea className="form-control" id="card2description" data-id="card2description" value={data.card2description} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card2img">Card 2 Image URL</label>
+                            <div className='input-group'>
+                                <input type="text" className="form-control" id="card2img" data-id="card2img" value={data.card2img} onChange={handleChange} />
+                                <input type="file" className="form-control" id="profileImageInput" data-id="card2img" accept="image/*" onChange={handleImageChange} />
+                            </div>
+                            
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card3title">Card 3 Title</label>
+                            <input type="text" className="form-control" id="card3title" data-id="card3title" value={data.card3title} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card3description">Card 3 Description</label>
+                            <textarea className="form-control" id="card3description" data-id="card3description" value={data.card3description} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="card3img">Card 3 Image URL</label>
+                            <div className='input-group'>
+                                <input type="text" className="form-control" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} />
+                                <input type="file" className="form-control" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} />
+                            </div>
+                          
+                        </div>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div>
-                    <label htmlFor="card1title">Card 1 Title</label>
-                    <input type="text" id="card1title" data-id="card1title" value={data.card1title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card1description">Card 1 Description</label>
-                    <textarea id="card1description" data-id="card1description" value={data.card1description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card1img">Card 1 Image URL</label>
-                    <input type="text" id="card1img" data-id="card1img" value={data.card1img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="card1img" accept="image/*" onChange={handleImageChange} />
-
-                </div>
-                <div>
-                    <label htmlFor="card2title">Card 2 Title</label>
-                    <input type="text" id="card2title" data-id="card2title" value={data.card2title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card2description">Card 2 Description</label>
-                    <textarea id="card2description" data-id="card2description" value={data.card2description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card2img">Card 2 Image URL</label>
-                    <input type="text" id="card2img" data-id="card2img" value={data.card2img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="card2img" accept="image/*" onChange={handleImageChange} />
-
-                </div>
-                <div>
-                    <label htmlFor="card3title">Card 3 Title</label>
-                    <input type="text" id="card3title" data-id="card3title" value={data.card3title} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card3description">Card 3 Description</label>
-                    <textarea id="card3description" data-id="card3description" value={data.card3description} onChange={handleChange} />
-                </div>
-                <div>
-                    <label htmlFor="card3img">Card 3 Image URL</label>
-                    <input type="text" id="card3img" data-id="card3img" value={data.card3img} onChange={handleChange} />
-                    <input type="file" id="profileImageInput" data-id="card3img" accept="image/*" onChange={handleImageChange} />
-
-                </div>
-                <button onClick={handleClick}>Save</button>
+                <button className="btn btn-primary" onClick={handleClick}>Save</button> {' '}
             </>)}
-        </div>
+        </>
     )
 }
