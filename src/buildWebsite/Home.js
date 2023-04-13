@@ -4,7 +4,7 @@ import { uploadFileAndGetURL } from '../firebase';
 
 
 export default function Home(props) {
-    const [data, setData] = useState({
+    const initData = {
         imgSrc: '/img/carousel-3.jpg',
         heading5: 'WELCOME TO WOODY',
         heading1: 'Best Carpenter & Craftsman Services',
@@ -13,7 +13,8 @@ export default function Home(props) {
         link1Text: 'Read More',
         link2: '!#',
         link2Text: 'Free Quota',
-    })
+    }
+    const [data, setData] = useState(initData)
     const [created, setCreated] = useState(false)
 
     useEffect(() => {
@@ -82,8 +83,6 @@ export default function Home(props) {
                         <label htmlFor="imgSrc">imgSrc</label>
                         <input type="text" id="imgSrc" data-id="imgSrc" value={data.imgSrc} onChange={handleChange} />
                         <input type="file" id="profileImageInput" data-id="imgSrc" accept="image/*" onChange={handleImageChange} />
-
-
                     </div>
                     <div>
                         <label htmlFor="heading5">heading5</label>
@@ -114,6 +113,7 @@ export default function Home(props) {
                         <input type="text" id="link2Text" data-id="link2Text" value={data.link2Text} onChange={handleChange} />
                     </div>
                     <button onClick={handleClick}>Save</button>
+                    <button onClick={() => { props.handleDelete('index'); setData(initData) }}>delete</button>
                 </>)
             }
         </>
