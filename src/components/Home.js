@@ -1,10 +1,7 @@
 import React from 'react'
-import WebsiteCreate from '../buildWebsite/WebsiteCreate'
 import { Link } from 'react-router-dom';
-import { Carousel, Button } from 'react-bootstrap';
+import { Carousel} from 'react-bootstrap';
 import './HomeStyle.css';
-
-
 
 export default function Home(props) {
 
@@ -15,14 +12,18 @@ export default function Home(props) {
 
                     <h1 className='title-in-home'>Our Templates, For Best Experience</h1> <hr></hr>
                     <h3 className='title-in-home'>Totaly <strong>FREE</strong> templates, you can Choose the most suitable template for your need and modify it to get the best Experience </h3>
-                    <br /><br />
+                    <br />
+                    <div style={{fontSize: '22px', textAlign:'center'}}>
+                        <Link to={'/create'}>Create</Link> your first website
+                    </div>
+                    <br />
 
                     <Carousel>
                         <Carousel.Item>
                             <div className="carousel-image-container">
                                 <img
                                     className="d-block w-100 carousel-image"
-                                    src="img/site14.JPG"
+                                    src="img/site14.jpg"
                                     alt="First slide"
                                 />
                             </div>
@@ -31,7 +32,7 @@ export default function Home(props) {
                             <div className="carousel-image-container">
                                 <img
                                     className="d-block w-100 carousel-image"
-                                    src="img/site16.PNG"
+                                    src="img/site16.png"
                                     alt="Second slide"
                                 />
                             </div>
