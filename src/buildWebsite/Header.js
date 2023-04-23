@@ -58,7 +58,7 @@ export default function Header(props) {
     }
 
     return (
-        <div>
+        <>
             {(firstPath === 'website') && (<><link href="/img/favicon.ico" rel="icon"></link>
                 <link rel="preconnect" href="https://fonts.googleapis.com"></link>
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
@@ -219,6 +219,6 @@ export default function Header(props) {
                 <button className="btn btn-primary my-4" onClick={handleClick}>{props.websiteID ? 'Update' : 'Save'}</button>&nbsp;
                 {props.handleDelete && (<button className="btn btn-danger my-4" onClick={() => { props.handleDelete('header'); setData(initData) }}>Delete</button>)}&nbsp;
             </>)}
-        </div >
+        </>
     )
 }
