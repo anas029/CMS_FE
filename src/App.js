@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from './firebase';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SocialLogin from './components/SocialLogin';
 import ForgotPassword from './components/ForgotPassword';

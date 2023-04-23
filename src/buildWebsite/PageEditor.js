@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Axios from "axios"
-
 import Header from './Header'
 import Home from './Home'
 import About from './About'
@@ -8,10 +7,7 @@ import Service from './Service'
 import Feature from './Feature'
 import Projects from './Projects'
 import Footer from './Footer'
-
 import { Button, Col, Container, ProgressBar, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-
 
 
 export default function PageEditor(props) {

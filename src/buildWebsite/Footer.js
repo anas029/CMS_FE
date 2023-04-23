@@ -114,7 +114,7 @@ export default function Footer(props) {
                         <div className="copyright">
                             <div className="row">
                                 <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                                    © <a className="border-bottom" href="#">{data.siteName}</a>, All Right Reserved.
+                                    © <a className="border-bottom" href="/#">{data.siteName}</a>, All Right Reserved.
                                 </div>
                                 <div className="col-md-6 text-center text-md-end">
                                     <a className="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
