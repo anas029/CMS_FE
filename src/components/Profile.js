@@ -30,8 +30,7 @@ function Profile({ currentUser }) {
 
   useEffect(() => {
     if (!currentUser) {
-      //NEED FIXING THIS
-      navigate('/');
+      navigate('/login');
     } else {
       setFirstName(currentUser.firstName);
       setLastName(currentUser.lastName);
