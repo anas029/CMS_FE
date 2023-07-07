@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, ProgressBar, Row } from 'react-bootstrap';
-import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Axios from 'axios';
 import Header from './Header';
 import Home from './Home';
 import About from './About';
@@ -28,16 +27,26 @@ export default function PageBuilder(props) {
       .then((res) => {
         setFormData({ ...formData, ...dataPage });
         setStep(step + 1);
-        if(step === 7){
-          navigate(`/website/${props.websiteDomain}/`)
-        }
+        checkLastStep();
       })
       .catch((error) => console.log(error));
   };
 
+  const handleSkip = () => {
+    setStep(step + 1);
+    checkLastStep();
+  }
+
   const handleBack = () => {
     setStep(step - 1);
   };
+
+  const checkLastStep = () => {
+    if(step === 7){
+      window.open(`/website/${props.websiteDomain}/`, '_blank');
+      navigate('/profile');
+    }
+  }
 
   const renderForm = () => {
     switch (step) {
@@ -96,10 +105,15 @@ export default function PageBuilder(props) {
         <Col md={10}>
           {renderForm()}
           {step > 1 && (
-            <Button className="mr-2" variant="secondary" onClick={handleBack}>
-              Back
-            </Button>
+            <>
+              <Button className="mr-2" variant="secondary" onClick={handleBack}>
+                Back
+              </Button>{' '}
+            </>
           )}
+          <Button className="mr-2" variant="secondary" onClick={handleSkip}>
+            Skip
+          </Button>
         </Col>
       </Row>
     </Container>

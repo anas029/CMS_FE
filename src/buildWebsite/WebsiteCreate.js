@@ -10,7 +10,7 @@ export default function WebsiteCreate(props) {
 
     useEffect(() => {
         if (!props.currentUser) {
-            navigate('/');
+            navigate('/login');
         }
     }, [props.currentUser, navigate]);
 
