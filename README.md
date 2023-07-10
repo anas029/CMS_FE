@@ -4,4 +4,4 @@ This is a Content Management System (CMS) website that allows users to see ready
 <br>
 
 <h2>Frontend</h2>
-<p>This is the frontend repository for the project. For more details, please read the READ ME file in <a href="https://github.com/mohamed-alalwan/CMS_BE.git">the backend repository</a>.</p>
+<p>This is the frontend repository for the project. For more details, please read the READ ME file in <a href="https://github.com/anas029/CMS_BE">the backend repository</a>.</p>
